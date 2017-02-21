@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/Normalpadding"
+    android:paddingLeft="@dimen/Normalpadding"
+    android:paddingRight="@dimen/Normalpadding">
+
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/H3Font"
+        android:textColor="@color/DarkGrayColor"
+        tools:text="标题"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/Smallpadding"
+        android:paddingBottom="@dimen/Normalpadding">
+
+        <TextView
+            android:id="@+id/official_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/H4Font"
+            tools:text="公众号"/>
+
+        <TextView
+            android:id="@+id/read_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/Mediumpadding"
+            android:textSize="@dimen/H4Font"
+            android:drawableLeft="@drawable/read"
+            tools:text="阅读数"/>
+
+        <TextView
+            android:id="@+id/like_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/read_count_text_view"
+            android:textSize="@dimen/H4Font"
+            android:drawableLeft="@drawable/like"
+            tools:text="点赞数"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/lineColor"
+        android:layout_alignParentBottom="true"/>
+</LinearLayout>

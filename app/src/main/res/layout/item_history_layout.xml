@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/Normalpadding"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        tools:text="姓名"/>
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/title_text_view"
+        android:paddingLeft="10dp"
+        android:layout_alignBottom="@id/title_text_view"
+        android:textSize="12dp"
+        tools:text="时间"/>
+
+    <TextView
+        android:id="@+id/money_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="25dp"
+        tools:text="金额"/>
+
+    <TextView
+        android:id="@+id/desc_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:layout_below="@+id/date_text_view"
+        android:layout_toLeftOf="@id/money_text_view"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="@dimen/Normalpadding"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="13dp"
+        tools:text="留言"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/MediumGrayColor"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

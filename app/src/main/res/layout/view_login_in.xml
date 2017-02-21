@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/Normalpadding"
+    android:paddingBottom="@dimen/Lagerpadding"
+    android:background="@color/OrangeColor">
+
+    <ImageView
+        android:id="@+id/user_pic_image_view"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/login_in"/>
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="@dimen/Normalpadding"
+        android:textSize="@dimen/H3Font"
+        android:textColor="@color/WhiteColor"
+        android:text="未登录"/>
+
+</LinearLayout>

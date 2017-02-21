@@ -1,0 +1,29 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="H1Font">20sp</dimen>
+    <dimen name="H2Font">18sp</dimen>
+    <dimen name="H3Font">16sp</dimen>
+    <dimen name="H4Font">14sp</dimen>
+    <dimen name="H5Font">12sp</dimen>
+    <dimen name="Medium">10sp</dimen>
+
+    <dimen name="line">2px</dimen>
+    <dimen name="lineone">1px</dimen>
+
+    <dimen name="SR">2dp</dimen>
+    <dimen name="MR">3dp</dimen>
+    <dimen name="LR">5dp</dimen>
+
+    <dimen name="Smallpadding">5dp</dimen>
+    <dimen name="Normalpadding">10dp</dimen>
+    <dimen name="Mediumpadding">15dp</dimen>
+    <dimen name="Lagerpadding">20dp</dimen>
+
+    <dimen name="Avatar">56dp</dimen>
+
+    <dimen name="ModulGap">10dp</dimen>
+
+</resources>

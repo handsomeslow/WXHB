@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="BackgroundPageColor">#f4f4f4</color>
+    <color name="BlackColor">#ff262626</color>
+    <color name="DarkGrayColor">#555555</color>
+    <color name="MediumGrayColor">#8d8c92</color>
+    <color name="LightGrayColor">#cccccc</color>
+    <color name="WhiteColor">#ffffff</color>
+    <color name="LightGreenColor">#A2BF9A</color>
+    <color name="GreenColor">#62AB00</color>
+    <color name="BlueColor">#8099AF</color>
+
+    <color name="DarkGreenColor">#4A8200</color>
+    <color name="OrangeColor">#E54B00</color>
+    <color name="DarkRedColor">#9b1417</color>
+    <color name="DarkBlueColor">#2D4496</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="lineColor">#555555</color>
+    <color name="PageBackgroundColor">#cccccc</color>
+    <color name="ContentBackgroundColor">#ffffff</color>
+
+</resources>
