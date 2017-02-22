@@ -33,7 +33,8 @@ public class AdminPresenter implements AdminContract.Presenter {
                     int count = 0;
                     // 以下字符串不可更改
                     Document document = Jsoup.connect(HtmlDivUtil.NEW_HTML_HOST).get();
-                    Elements elements = document.select("tbody.ant-table-tbody").select("tr");
+                    //Elements elements = document.select("ant-table-tbody").select("tr");
+                    Elements elements = document.select("ant-table-row.ant-table-row-level-0");
                     for (Element element : elements) {
                         Elements elementsTd = element.select("td");
                         AVObject newObject = new AVObject("hot_wechat_news");

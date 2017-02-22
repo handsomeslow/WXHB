@@ -7,13 +7,14 @@ import android.widget.TextView;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.activity.WebViewActivity;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
 
 /**
  * Created by 徐俊 on 2017/2/18.
  */
 
-public class NewsInfoViewHolder extends RecyclerView.ViewHolder {
-    Context context;
+public class NewsInfoViewHolder extends UltimateRecyclerviewViewHolder {
+
     View itemView;
 
     TextView titleView;
@@ -22,9 +23,8 @@ public class NewsInfoViewHolder extends RecyclerView.ViewHolder {
     TextView likeCountView;
 
 
-    public NewsInfoViewHolder(Context context,View itemView) {
+    public NewsInfoViewHolder(View itemView) {
         super(itemView);
-        this.context = context;
         this.itemView = itemView;
         bindView(itemView);
     }

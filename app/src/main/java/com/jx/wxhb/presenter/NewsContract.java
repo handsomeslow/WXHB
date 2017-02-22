@@ -19,6 +19,6 @@ public class NewsContract {
     public interface Presenter{
         void pullNewsFromCloud();
 
-        //void pushNewsToCloud();
+        void loadMoreNewsFromCloud();
     }
 }

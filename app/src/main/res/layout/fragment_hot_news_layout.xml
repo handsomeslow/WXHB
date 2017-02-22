@@ -1,17 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.jx.wxhb.fragment.HotNewsFragment">
+    android:layout_height="match_parent">
 
-
-        <com.aspsine.irecyclerview.IRecyclerView
+        <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
             android:id="@+id/new_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:refreshEnabled="true"
-            app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"/>
+            android:layout_height="match_parent" />
 
 
 </RelativeLayout>
