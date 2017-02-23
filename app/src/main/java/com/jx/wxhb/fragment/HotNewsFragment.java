@@ -3,12 +3,12 @@ package com.jx.wxhb.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.NewsInfoAdapter;
@@ -39,18 +39,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
     NewsInfoAdapter adapter;
 
     NewsPresenter presenter;
-
-//    Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case ContentUtil.MSG_REFRESH:
-//                    initView();
-//                    break;
-//            }
-//        }
-//    };
-
 
     public static HotNewsFragment newInstance(String title) {
         HotNewsFragment fragment = new HotNewsFragment();
@@ -83,15 +71,14 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
         getActivity().setTitle(title);
 
         newListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        newListView.reenableLoadmore();
+//        newListView.setNormalHeader(LayoutInflater.from(getActivity())
+//                .inflate(R.layout.view_bottom_progressbar, null));
 
-        newListView.displayDefaultFloatingActionButton(true);
         newListView.setLoadMoreView(LayoutInflater.from(getActivity())
                 .inflate(R.layout.view_bottom_progressbar, null));
         newListView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount, int maxLastVisiblePosition) {
-                newListView.setRefreshing(true);
                 Log.d("jun", "loadMore");
                 presenter.pullNewsFromCloud();
             }
@@ -108,17 +95,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 //        });
 
     }
-//
-//    private void initView() {
-//        if (adapter == null) {
-//            adapter = new NewsInfoAdapter(getActivity(), newList);
-//            newListView.setAdapter(adapter);
-//        } else {
-//            adapter.setNewInfoList(newList);
-//            adapter.notifyDataSetChanged();
-//        }
-//        newListView.setRefreshing(false);
-//    }
 
 
     @Override
@@ -129,15 +105,40 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
     }
 
     @Override
-    public void refreshListView(List<HotNewInfo> newsList) {
+    public void loadMoreDataSuccess(List<HotNewInfo> newsList) {
         if (adapter == null) {
             adapter = new NewsInfoAdapter(getActivity(), newsList);
             newListView.setAdapter(adapter);
         } else {
             adapter.insertInternal(newsList,newList);
         }
-        newListView.setRefreshing(false);
 
     }
 
+    @Override
+    public void loadnoMoreData() {
+        newListView.disableLoadmore();
+        Toast.makeText(getActivity(),"没有更多内容",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loadMoreDataFail() {
+
+    }
+
+
+    @Override
+    public void refreshDataSuccess(List<HotNewInfo> newsList) {
+        if (adapter == null) {
+            adapter = new NewsInfoAdapter(getActivity(), newsList);
+            newListView.setAdapter(adapter);
+        } else {
+            adapter.setNewInfoList(newsList);
+        }
+    }
+
+    @Override
+    public void refreshDataFail() {
+        Toast.makeText(getActivity(),"没有更多内容",Toast.LENGTH_SHORT).show();
+    }
 }

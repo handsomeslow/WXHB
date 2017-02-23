@@ -16,9 +16,9 @@ public class HotNewInfo extends RealmObject {
     private double score;
 
     // 10万+
-    private double readcount;
+    private String readcount;
 
-    private double likecount;
+    private String likecount;
 
     public String getTitle() {
         return title;
@@ -44,19 +44,19 @@ public class HotNewInfo extends RealmObject {
         this.official = official;
     }
 
-    public double getReadcount() {
+    public String getReadcount() {
         return readcount;
     }
 
-    public void setReadcount(double readcount) {
+    public void setReadcount(String readcount) {
         this.readcount = readcount;
     }
 
-    public double getLikecount() {
+    public String getLikecount() {
         return likecount;
     }
 
-    public void setLikecount(double likecount) {
+    public void setLikecount(String likecount) {
         this.likecount = likecount;
     }
 

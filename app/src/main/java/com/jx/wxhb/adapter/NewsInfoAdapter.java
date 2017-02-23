@@ -1,5 +1,7 @@
 package com.jx.wxhb.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,7 +36,7 @@ public class NewsInfoAdapter extends UltimateViewAdapter<NewsInfoViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NewsInfoViewHolder holder, int position) {
+    public void onBindViewHolder(final NewsInfoViewHolder holder, int position) {
         if (position >= newInfoList.size()){
             return;
         }
@@ -43,12 +45,8 @@ public class NewsInfoAdapter extends UltimateViewAdapter<NewsInfoViewHolder> {
         final String url = newInfoList.get(position).getUrl();
         holder.titleView.setText(title);
         holder.officialView.setText(newInfo.getOfficial());
-        String count = newInfo.getReadcount()>= HtmlDivUtil.MAX_COUNT_FLOAT ?
-                HtmlDivUtil.MAX_COUNT:String.valueOf((int)newInfo.getReadcount());
-        holder.readCountView.setText(count);
-        count = newInfo.getLikecount()>= HtmlDivUtil.MAX_COUNT_FLOAT ?
-                HtmlDivUtil.MAX_COUNT:String.valueOf((int)newInfo.getLikecount());
-        holder.likeCountView.setText(count);
+        holder.readCountView.setText(newInfo.getReadcount());
+        holder.likeCountView.setText(newInfo.getLikecount());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +57,12 @@ public class NewsInfoAdapter extends UltimateViewAdapter<NewsInfoViewHolder> {
     }
 
 
-    public void setNewInfoList(List<HotNewInfo> newInfoList) {
-        this.newInfoList = newInfoList;
+    public void setNewInfoList(List<HotNewInfo> newsList) {
+        if (newInfoList!=null){
+            newInfoList.clear();
+        }
+        newInfoList = newsList;
+        notifyDataSetChanged();
     }
 
     @Override

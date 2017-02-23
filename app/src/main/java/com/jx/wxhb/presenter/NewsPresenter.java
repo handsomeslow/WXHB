@@ -2,7 +2,6 @@ package com.jx.wxhb.presenter;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -10,14 +9,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.jx.wxhb.model.HotNewInfo;
 import com.jx.wxhb.utils.ContentUtil;
-import com.jx.wxhb.utils.HtmlDivUtil;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,22 +36,38 @@ public class NewsPresenter implements NewsContract.Presenter {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case ContentUtil.MSG_REFRESH:
-                    view.refreshListView(newList);
+                case ContentUtil.PULL_DATA_SUCCESS:
+                    view.loadMoreDataSuccess(newList);
                     break;
+
+                case ContentUtil.PULL_DATA_NON:
+                    view.loadnoMoreData();
+                    break;
+
+                case ContentUtil.PULL_DATA_FAIL:
+                    view.loadMoreDataFail();
+                    break;
+                case ContentUtil.REFRESH_NEWS_SUCCESS:
+                    view.refreshDataSuccess(newList);
+
+                case ContentUtil.REFRESH_NEWS_FAIL:
+                    view.refreshDataFail();
             }
         }
     };
 
+    // 上拉加载更多
     @Override
     public void pullNewsFromCloud() {
-        AVQuery<AVObject> query = new AVQuery<>("hot_wechat_news");
-        query.limit(15);
-        query.orderByDescending("updatedAt");
+        AVQuery<AVObject> query = new AVQuery<>("WBNews");
+        query.limit(NEWS_PAGE_COUNT);
+        query.skip(pageNum * NEWS_PAGE_COUNT);
+        query.orderByDescending("score");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (list == null || list.size()<=0){
+                    handler.sendEmptyMessage(ContentUtil.PULL_DATA_NON);
                     return;
                 }
                 for (AVObject object:list){
@@ -68,25 +76,29 @@ public class NewsPresenter implements NewsContract.Presenter {
                     info.setUrl(object.getString("url"));
                     info.setOfficial(object.getString("official"));
                     info.setScore(object.getDouble("score"));
-                    info.setReadcount(object.getDouble("readcount"));
-                    info.setLikecount(object.getDouble("likecount"));
+                    info.setReadcount(object.getString("readCount"));
+                    info.setLikecount(object.getString("likeCount"));
                     newList.add(info);
                 }
-                handler.sendEmptyMessage(ContentUtil.MSG_REFRESH);
+                handler.sendEmptyMessage(ContentUtil.PULL_DATA_SUCCESS);
             }
         });
+        pageNum++;
+
     }
 
+    // 下拉刷新
     @Override
-    public void loadMoreNewsFromCloud() {
-        AVQuery<AVObject> query = new AVQuery<>("hot_wechat_news");
+    public void refreshNewsFromCloud() {
+        AVQuery<AVObject> query = new AVQuery<>("WBNews");
         query.limit(NEWS_PAGE_COUNT);
         query.skip(pageNum * NEWS_PAGE_COUNT);
-        query.orderByDescending("updatedAt");
+        query.orderByDescending("score");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (list == null || list.size()<=0){
+                    handler.sendEmptyMessage(ContentUtil.REFRESH_NEWS_FAIL);
                     return;
                 }
                 for (AVObject object:list){
@@ -95,37 +107,11 @@ public class NewsPresenter implements NewsContract.Presenter {
                     info.setUrl(object.getString("url"));
                     info.setOfficial(object.getString("official"));
                     info.setScore(object.getDouble("score"));
-                    info.setReadcount(object.getDouble("readcount"));
-                    info.setLikecount(object.getDouble("likecount"));
+                    info.setReadcount(object.getString("readCount"));
+                    info.setLikecount(object.getString("likeCount"));
                     newList.add(info);
                 }
-                handler.sendEmptyMessage(ContentUtil.MSG_REFRESH);
-            }
-        });
-    }
-
-    private void pullNews(){
-        AVQuery<AVObject> query = new AVQuery<>("hot_wechat_news");
-        query.limit(NEWS_PAGE_COUNT);
-        query.skip(pageNum * NEWS_PAGE_COUNT);
-        query.orderByDescending("updatedAt");
-        query.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                if (list == null || list.size()<=0){
-                    return;
-                }
-                for (AVObject object:list){
-                    HotNewInfo info = new HotNewInfo();
-                    info.setTitle(object.getString("title"));
-                    info.setUrl(object.getString("url"));
-                    info.setOfficial(object.getString("official"));
-                    info.setScore(object.getDouble("score"));
-                    info.setReadcount(object.getDouble("readcount"));
-                    info.setLikecount(object.getDouble("likecount"));
-                    newList.add(info);
-                }
-                handler.sendEmptyMessage(ContentUtil.MSG_REFRESH);
+                handler.sendEmptyMessage(ContentUtil.REFRESH_NEWS_SUCCESS);
             }
         });
     }

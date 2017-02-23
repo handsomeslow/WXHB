@@ -12,13 +12,23 @@ import java.util.List;
 public class NewsContract {
     public interface View{
 
-        void refreshListView(List<HotNewInfo> newList);
+        // 下拉刷新动作
+        void refreshDataSuccess(List<HotNewInfo> newList);
+
+        void refreshDataFail();
+
+        // 上拉动作
+        void loadMoreDataSuccess(List<HotNewInfo> newList);
+
+        void loadnoMoreData();
+
+        void loadMoreDataFail();
 
     }
 
     public interface Presenter{
         void pullNewsFromCloud();
 
-        void loadMoreNewsFromCloud();
+        void refreshNewsFromCloud();
     }
 }
