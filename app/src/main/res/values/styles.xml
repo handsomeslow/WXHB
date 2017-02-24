@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- 回复、评论-->
+    <style name="OwerText">
+        <item name="android:textSize">@dimen/H4Font</item>
+        <item name="android:textColor">@color/MediumGrayColor</item>
+    </style>
+
+    <!-- 回复、评论-->
+    <style name="CommentText">
+        <item name="android:textSize">@dimen/H3Font</item>
+        <item name="android:textColor">@color/BlackColor</item>
+    </style>
+
+    <!--标题-->
+    <style name="TitleTextStyle">
+        <item name="android:textSize">@dimen/H3Font</item>
+        <item name="android:textColor">@color/BlackColor</item>
+    </style>
 </resources>

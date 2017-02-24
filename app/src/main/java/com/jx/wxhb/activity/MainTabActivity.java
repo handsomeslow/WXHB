@@ -12,6 +12,7 @@ import com.jx.wxhb.fragment.BaseFragment;
 import com.jx.wxhb.fragment.HotNewsFragment;
 import com.jx.wxhb.fragment.LuckMoneyFragment;
 import com.jx.wxhb.fragment.MyFragment;
+import com.jx.wxhb.fragment.OfficialFragment;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class MainTabActivity extends BaseActivity implements BottomNavigationBar
     LuckMoneyFragment luckMoneyFragment;
     HotNewsFragment hotNewsFragment;
     MyFragment myFragment;
+    OfficialFragment officialFragment;
 
     @Bind(R.id.fragment_wrap)
     FrameLayout fragmentWrap;
@@ -75,6 +77,11 @@ public class MainTabActivity extends BaseActivity implements BottomNavigationBar
                 ft.replace(R.id.fragment_wrap,hotNewsFragment);
                 break;
             case 2:
+                if (officialFragment == null){
+                    officialFragment = OfficialFragment.newInstance("58af97bb570c35006919254f");
+                }
+                ft.replace(R.id.fragment_wrap,officialFragment);
+                break;
             case 3:
                 if (myFragment==null){
                     myFragment = MyFragment.newInstance("设置");

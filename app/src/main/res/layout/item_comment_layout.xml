@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/Normalpadding">
+
+    <TextView
+        android:id="@+id/number_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/OwerText"
+        tools:text="一楼"/>
+
+    <TextView
+        android:id="@+id/ower_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/number_text_view"
+        android:paddingLeft="@dimen/Smallpadding"
+        android:textAppearance="@style/OwerText"
+        tools:text="姓名"/>
+
+    <TextView
+        android:id="@+id/time_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ower_name_text_view"
+        android:paddingLeft="@dimen/Normalpadding"
+        android:textAppearance="@style/OwerText"
+        tools:text="2017.06"/>
+
+    <TextView
+        android:id="@+id/content_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ower_name_text_view"
+        android:paddingTop="@dimen/Smallpadding"
+        android:paddingLeft="@dimen/Normalpadding"
+        android:textAppearance="@style/CommentText"
+        tools:text="评论"/>
+
+</RelativeLayout>
