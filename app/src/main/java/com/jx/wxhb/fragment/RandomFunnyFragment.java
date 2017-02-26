@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.presenter.RandomFunnyContract;
@@ -85,7 +86,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Override
     public void refreshNoteView(int position, int count) {
-
+        Toast.makeText(getActivity(),"refreshNoteView",Toast.LENGTH_SHORT).show();
     }
 
     @Override

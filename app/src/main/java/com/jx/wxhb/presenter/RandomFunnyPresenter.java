@@ -12,6 +12,13 @@ import com.avos.avoscloud.SaveCallback;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by 徐俊 on 2017/2/25.
  */
@@ -31,33 +38,71 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
         if (randomFunny==null){
             return;
         }
-        final AVObject randomFunnyNote = new AVObject("RandomFunnyNote");
-        randomFunnyNote.put("count",count);
-        randomFunnyNote.put("positopm",position);
-        randomFunnyNote.put("user", AVUser.getCurrentUser());
-        randomFunnyNote.saveInBackground(new SaveCallback() {
+        Subscription subscription = Observable.create(new Observable.OnSubscribe<AVObject>() {
             @Override
-            public void done(AVException e) {
-                if (e!=null){
-                    e.printStackTrace();
-                    return;
-                }
-                AVRelation<AVObject> funnyRelation = randomFunny.getRelation("actors");
-                funnyRelation.add(randomFunnyNote);
-                randomFunny.saveInBackground(new SaveCallback() {
+            public void call(final Subscriber<? super AVObject> subscriber) {
+                AVQuery<AVObject> query = new AVQuery<>("RandomFunny");
+                query.whereEqualTo("used",1);
+                query.findInBackground(new FindCallback<AVObject>() {
                     @Override
-                    public void done(AVException e) {
-                        if (e!=null){
+                    public void done(List<AVObject> list, AVException e) {
+                        if (e != null){
                             e.printStackTrace();
                             return;
                         }
-                        Log.d("jun", "randomFunny.saveInBackground: sucess");
-                        view.refreshNoteView(position,count);
-
+                        if (list != null && list.size()>0){
+                            randomFunny = list.get(0);
+                            Log.d("jun", "pullRandomFunnyData: sucess");
+                            subscriber.onNext(randomFunny);
+                            subscriber.onCompleted();
+                        }
                     }
                 });
             }
-        });
+        }).subscribeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<AVObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(AVObject avObject) {
+                        final AVObject randomFunnyNote = new AVObject("RandomFunnyNote");
+                        randomFunnyNote.put("count",count);
+                        randomFunnyNote.put("positopm",position);
+                        randomFunnyNote.put("user", AVUser.getCurrentUser());
+                        randomFunnyNote.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e!=null){
+                                    e.printStackTrace();
+                                    return;
+                                }
+                                AVRelation<AVObject> funnyRelation = randomFunny.getRelation("actors");
+                                funnyRelation.add(randomFunnyNote);
+                                randomFunny.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e!=null){
+                                            e.printStackTrace();
+                                            return;
+                                        }
+                                        Log.d("jun", "randomFunny.saveInBackground: sucess");
+                                        view.refreshNoteView(position,count);
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
 
     }
 
