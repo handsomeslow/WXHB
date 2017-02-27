@@ -152,13 +152,20 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
-                                List<Integer> actorsCount = Arrays.asList(0,0,0,0,0);
-                                for (AVObject object : list){
-                                    //参与信息
-                                    int position = object.getInt("position");
-                                    actorsCount.set(position,actorsCount.get(position)+1);
+                                if (e!=null){
+                                    e.printStackTrace();
+                                    return;
                                 }
-                                view.refreshActorsView(actorsCount);
+                                if (list!=null && list.size()>0){
+                                    List<Integer> actorsCount = Arrays.asList(0,0,0,0,0);
+                                    for (AVObject object : list){
+                                        //参与信息
+                                        int position = object.getInt("position");
+                                        actorsCount.set(position,actorsCount.get(position)+1);
+                                    }
+                                    view.refreshActorsView(actorsCount);
+                                }
+
                             }
                         });
                     }
@@ -206,9 +213,15 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                         query1.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
-                                AVUser user = list.get(0).getAVUser("user");
-                                String userName = user.getUsername();
-                                Log.d("jun", "pullRandomFunnyHistoryData: "+userName);
+                                if (e != null){
+                                    e.printStackTrace();
+                                    return;
+                                }
+                                if (list!=null && list.size()>0){
+                                    AVUser user = list.get(0).getAVUser("user");
+                                    String userName = user.getUsername();
+                                    Log.d("jun", "pullRandomFunnyHistoryData: "+userName);
+                                }
                             }
                         });
                         Log.d("jun", "pullRandomFunnyHistoryData: "+userName);
