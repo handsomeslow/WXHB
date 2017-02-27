@@ -54,11 +54,13 @@ public class MainTabActivity extends BaseActivity
                 .addItem(new BottomNavigationItem(R.drawable.settings, "设置")).setActiveColor(R.color.DarkGrayColor)
                 .setFirstSelectedPosition(0)
                 .initialise();
+        bottomBar.setTabSelectedListener(this);
 
         mainTabAdapter = new MainTabAdapter(getSupportFragmentManager(), setFragments());
+        fragmentViewPager.setOffscreenPageLimit(3);
         fragmentViewPager.setAdapter(mainTabAdapter);
         fragmentViewPager.addOnPageChangeListener(this);
-
+        setTitle("红包大作战");
     }
 
     private List<Fragment> setFragments(){
@@ -82,6 +84,20 @@ public class MainTabActivity extends BaseActivity
     @Override
     public void onPageSelected(int position) {
         bottomBar.selectTab(position);
+        switch (position){
+            case 0:
+                setTitle("红包大作战");
+                break;
+            case 1:
+                setTitle("今日微信热点");
+                break;
+            case 2:
+                setTitle("猜猜乐");
+                break;
+            case 3:
+                setTitle("设置");
+                break;
+        }
     }
 
     @Override
@@ -92,7 +108,6 @@ public class MainTabActivity extends BaseActivity
     @Override
     public void onTabSelected(int position) {
         fragmentViewPager.setCurrentItem(position);
-
     }
 
     @Override

@@ -51,4 +51,5 @@ dependencies {
     compile 'com.liuguangqiang.ipicker:library:1.0.1'
     compile 'com.marshalchen.ultimaterecyclerview:library:0.7.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }

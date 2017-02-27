@@ -44,4 +44,14 @@
         android:id="@+id/winner_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/actors_chart_view"
+        android:padding="@dimen/Mediumpadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

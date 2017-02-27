@@ -15,9 +15,21 @@ import com.jx.wxhb.presenter.RandomFunnyContract;
 import com.jx.wxhb.presenter.RandomFunnyPresenter;
 import com.jx.wxhb.utils.ContentUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.PreviewColumnChartView;
 
 /**
  */
@@ -37,6 +49,9 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     TextView historyOutcomeTextView;
     @Bind(R.id.winner_text_view)
     TextView winnerTextView;
+    // 投注图标
+    @Bind(R.id.actors_chart_view)
+    ColumnChartView actorsChartView;
 
 
     private String title;
@@ -70,8 +85,6 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle(title);
-
         presenter = new RandomFunnyPresenter(this);
         presenter.pullRandomFunnyData();
         presenter.pullRandomFunnyHistoryData();
@@ -86,7 +99,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Override
     public void refreshNoteView(int position, int count) {
-        Toast.makeText(getActivity(),"refreshNoteView",Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -120,4 +133,38 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         presenter.addBetInfo(4, 10);
     }
 
+
+    private int[] COLORS = {ChartUtils.COLOR_BLUE,ChartUtils.COLOR_GREEN,ChartUtils.COLOR_ORANGE,ChartUtils.COLOR_RED,ChartUtils.COLOR_VIOLET};
+
+    private void generateColumChartView(List<Integer> list){
+        int subColumsNum = 1;
+        int columsNum = list.size();
+        List<SubcolumnValue> values;
+        List<Column> columns = new ArrayList<>();
+        List<AxisValue> axisValues = Arrays.asList(
+                new AxisValue(0).setLabel("第1个门"),
+                new AxisValue(1).setLabel("第2个门"),
+                new AxisValue(2).setLabel("第3个门"),
+                new AxisValue(3).setLabel("第4个门"),
+                new AxisValue(4).setLabel("第5个门"));
+        for (int i = 0;i<columsNum;i++){
+            values = new ArrayList<>();
+            for (int j = 0;j<subColumsNum;j++){
+                values.add(new SubcolumnValue(list.get(i), COLORS[i]));
+            }
+            Column column = new Column(values);
+            column.setHasLabels(true);
+            column.setHasLabelsOnlyForSelected(false);
+            columns.add(column);
+        }
+        ColumnChartData columnChartData = new ColumnChartData(columns);
+        columnChartData.setAxisXBottom(new Axis(axisValues).setHasLines(true));
+        columnChartData.setAxisYLeft(new Axis().setHasSeparationLine(true).setName("参与人数"));
+        actorsChartView.setColumnChartData(columnChartData);
+    }
+
+    @Override
+    public void refreshActorsView(List<Integer> list) {
+        generateColumChartView(list);
+    }
 }

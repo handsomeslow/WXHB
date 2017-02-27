@@ -66,7 +66,6 @@ public class LuckMoneyFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle(title);
         realm = Realm.getDefaultInstance();
 
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));

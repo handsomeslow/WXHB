@@ -80,7 +80,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle(title);
         adminPresenter = new AdminPresenter(this);
         loginInBt.setOnClickListener(this);
         saveImgBtn.setOnClickListener(this);

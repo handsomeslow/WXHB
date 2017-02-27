@@ -68,7 +68,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle(title);
 
         newListView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        newListView.setNormalHeader(LayoutInflater.from(getActivity())

@@ -7,9 +7,12 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.Observable;
@@ -75,7 +78,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                     public void onNext(AVObject avObject) {
                         final AVObject randomFunnyNote = new AVObject("RandomFunnyNote");
                         randomFunnyNote.put("count",count);
-                        randomFunnyNote.put("positopm",position);
+                        randomFunnyNote.put("position",position);
                         randomFunnyNote.put("user", AVUser.getCurrentUser());
                         randomFunnyNote.saveInBackground(new SaveCallback() {
                             @Override
@@ -95,7 +98,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                                         }
                                         Log.d("jun", "randomFunny.saveInBackground: sucess");
                                         view.refreshNoteView(position,count);
-
+                                        pullRandomFunnyData();
                                     }
                                 });
                             }
@@ -108,21 +111,73 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
 
     @Override
     public void pullRandomFunnyData() {
-        AVQuery<AVObject> query = new AVQuery<>("RandomFunny");
-        query.whereEqualTo("used",1);
-        query.findInBackground(new FindCallback<AVObject>() {
+        Subscription subscription = Observable.create(new Observable.OnSubscribe<AVObject>() {
             @Override
-            public void done(List<AVObject> list, AVException e) {
-                if (e != null){
-                    e.printStackTrace();
-                    return;
-                }
-                if (list != null && list.size()>0){
-                    randomFunny = list.get(0);
-                    Log.d("jun", "pullRandomFunnyData: sucess");
-                }
+            public void call(final Subscriber<? super AVObject> subscriber) {
+                AVQuery<AVObject> query = new AVQuery<>("RandomFunny");
+                query.whereEqualTo("used",1);
+                query.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
+                        if (e != null){
+                            e.printStackTrace();
+                            return;
+                        }
+                        if (list != null && list.size()>0){
+                            randomFunny = list.get(0);
+                            Log.d("jun", "pullRandomFunnyData: sucess");
+                            subscriber.onNext(randomFunny);
+                            subscriber.onCompleted();
+                        }
+                    }
+                });
             }
-        });
+        }).subscribeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<AVObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(AVObject avObject) {
+                        AVRelation<AVObject> funnyRelation = avObject.getRelation("actors");
+                        AVQuery<AVObject> query = funnyRelation.getQuery();
+                        query.include("user");
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                List<Integer> actorsCount = Arrays.asList(0,0,0,0,0);
+                                for (AVObject object : list){
+                                    //参与信息
+                                    int position = object.getInt("position");
+                                    actorsCount.set(position,actorsCount.get(position)+1);
+                                }
+                                view.refreshActorsView(actorsCount);
+                            }
+                        });
+                    }
+                });
+//        AVQuery<AVObject> query = new AVQuery<>("RandomFunny");
+//        query.whereEqualTo("used",1);
+//        query.findInBackground(new FindCallback<AVObject>() {
+//            @Override
+//            public void done(List<AVObject> list, AVException e) {
+//                if (e != null){
+//                    e.printStackTrace();
+//                    return;
+//                }
+//                if (list != null && list.size()>0){
+//                    randomFunny = list.get(0);
+//                    Log.d("jun", "pullRandomFunnyData: sucess");
+//                }
+//            }
+//        });
     }
 
     @Override
