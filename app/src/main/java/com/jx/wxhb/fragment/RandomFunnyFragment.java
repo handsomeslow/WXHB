@@ -3,6 +3,7 @@ package com.jx.wxhb.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,15 @@ import com.jx.wxhb.utils.ContentUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
@@ -99,7 +104,14 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Override
     public void refreshNoteView(int position, int count) {
+        Set<String> tags = new HashSet<String>();
+        tags.add("random_funny");
+        JPushInterface.setTags(getActivity(), tags, new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
 
+            }
+        });
     }
 
     @Override
@@ -167,4 +179,6 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     public void refreshActorsView(List<Integer> list) {
         generateColumChartView(list);
     }
+
+
 }

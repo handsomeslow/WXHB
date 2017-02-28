@@ -46,10 +46,23 @@
             android:value="134feb6b0141133aacb12579b08e3fba5b660049" />
 
         <activity android:name=".activity.WebViewActivity" />
-
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login"/>
+            android:label="@string/title_activity_login" />
+
+        <receiver
+            android:name=".service.PushRecevier"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.jx.wxhb" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

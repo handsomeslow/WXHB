@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
@@ -30,7 +31,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
     // private static final String[] ACTORS = {"actors_one","actors_two","actors_three","actors_four","actors_five"};
     RandomFunnyContract.View view;
 
-    AVObject randomFunny;
+    //AVObject randomFunny;
 
     public RandomFunnyPresenter(RandomFunnyContract.View view) {
         this.view = view;
@@ -38,9 +39,9 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
 
     @Override
     public void addBetInfo(final int position,final int count) {
-        if (randomFunny==null){
-            return;
-        }
+//        if (randomFunny==null){
+//            return;
+//        }
         Subscription subscription = Observable.create(new Observable.OnSubscribe<AVObject>() {
             @Override
             public void call(final Subscriber<? super AVObject> subscriber) {
@@ -54,7 +55,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                             return;
                         }
                         if (list != null && list.size()>0){
-                            randomFunny = list.get(0);
+                            AVObject randomFunny = list.get(0);
                             Log.d("jun", "pullRandomFunnyData: sucess");
                             subscriber.onNext(randomFunny);
                             subscriber.onCompleted();
@@ -75,7 +76,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(AVObject avObject) {
+                    public void onNext(final AVObject avObject) {
                         final AVObject randomFunnyNote = new AVObject("RandomFunnyNote");
                         randomFunnyNote.put("count",count);
                         randomFunnyNote.put("position",position);
@@ -87,9 +88,9 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                                     e.printStackTrace();
                                     return;
                                 }
-                                AVRelation<AVObject> funnyRelation = randomFunny.getRelation("actors");
+                                AVRelation<AVObject> funnyRelation = avObject.getRelation("actors");
                                 funnyRelation.add(randomFunnyNote);
-                                randomFunny.saveInBackground(new SaveCallback() {
+                                avObject.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(AVException e) {
                                         if (e!=null){
@@ -124,7 +125,7 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                             return;
                         }
                         if (list != null && list.size()>0){
-                            randomFunny = list.get(0);
+                            AVObject randomFunny = list.get(0);
                             Log.d("jun", "pullRandomFunnyData: sucess");
                             subscriber.onNext(randomFunny);
                             subscriber.onCompleted();

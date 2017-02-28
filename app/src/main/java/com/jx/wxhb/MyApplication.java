@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
 
+import cn.jpush.android.api.JPushInterface;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -26,5 +27,7 @@ public class MyApplication extends Application {
 
         AVOSCloud.initialize(this,"ROkb5tjAdkUnoc9XOsex9RcX-gzGzoHsz","8No0zMY9131Ev18gKESUPacn");
         AVOSCloud.setDebugLogEnabled(false);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 }
