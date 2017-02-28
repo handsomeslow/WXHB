@@ -1,9 +1,14 @@
 package com.jx.wxhb.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArraySet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,8 @@ import android.widget.Toast;
 import com.jx.wxhb.R;
 import com.jx.wxhb.presenter.RandomFunnyContract;
 import com.jx.wxhb.presenter.RandomFunnyPresenter;
+import com.jx.wxhb.service.PushRecevier;
+import com.jx.wxhb.service.PushRecevierImp;
 import com.jx.wxhb.utils.ContentUtil;
 
 import java.util.ArrayList;
@@ -63,6 +70,8 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     private RandomFunnyContract.Presenter presenter;
 
+    PushRecevier pushRecevier;
+
     public static RandomFunnyFragment newInstance(String title) {
         RandomFunnyFragment fragment = new RandomFunnyFragment();
         Bundle args = new Bundle();
@@ -93,6 +102,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         presenter = new RandomFunnyPresenter(this);
         presenter.pullRandomFunnyData();
         presenter.pullRandomFunnyHistoryData();
+
     }
 
     @Override
@@ -104,6 +114,10 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Override
     public void refreshNoteView(int position, int count) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("cn.jpush.android.intent.MESSAGE_RECEIVED");
+        filter.addCategory("com.jx.wxhb");
+        getActivity().registerReceiver(broadcastReceiver,filter);
         Set<String> tags = new HashSet<String>();
         tags.add("random_funny");
         JPushInterface.setTags(getActivity(), tags, new TagAliasCallback() {
@@ -180,5 +194,19 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         generateColumChartView(list);
     }
 
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("cn.jpush.android.intent.MESSAGE_RECEIVED")){
+                Log.d("jun", "onReceive: "+intent.getStringExtra("cn.jpush.android.CONTENT_TYPE"));
+                String type = intent.getStringExtra("cn.jpush.android.CONTENT_TYPE");
+                String num = intent.getStringExtra("cn.jpush.android.MESSAGE");
+                Log.d("jun", "onReceive: "+intent.getStringExtra("cn.jpush.android.MESSAGE"));
+                if (type.equals("random_funny")){
+                    Toast.makeText(getActivity(),"Winner:"+num,Toast.LENGTH_SHORT).show();
+                }
 
+            }
+        }
+    };
 }
