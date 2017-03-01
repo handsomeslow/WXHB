@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.ArraySet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,8 @@ import com.jx.wxhb.R;
 import com.jx.wxhb.presenter.RandomFunnyContract;
 import com.jx.wxhb.presenter.RandomFunnyPresenter;
 import com.jx.wxhb.service.PushRecevier;
-import com.jx.wxhb.service.PushRecevierImp;
 import com.jx.wxhb.utils.ContentUtil;
+import com.luolc.emojirain.EmojiRainLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +40,6 @@ import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
-import lecho.lib.hellocharts.view.PreviewColumnChartView;
 
 /**
  */
@@ -64,6 +62,9 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     // 投注图标
     @Bind(R.id.actors_chart_view)
     ColumnChartView actorsChartView;
+
+    @Bind(R.id.group_emoji_container)
+    EmojiRainLayout groupEmojiContainer;
 
 
     private String title;
@@ -102,6 +103,8 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         presenter = new RandomFunnyPresenter(this);
         presenter.pullRandomFunnyData();
         presenter.pullRandomFunnyHistoryData();
+        groupEmojiContainer.addEmoji(R.drawable.emoj_hb);
+        groupEmojiContainer.addEmoji(R.drawable.emoj_yb);
 
     }
 
@@ -117,7 +120,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         IntentFilter filter = new IntentFilter();
         filter.addAction("cn.jpush.android.intent.MESSAGE_RECEIVED");
         filter.addCategory("com.jx.wxhb");
-        getActivity().registerReceiver(broadcastReceiver,filter);
+        getActivity().registerReceiver(broadcastReceiver, filter);
         Set<String> tags = new HashSet<String>();
         tags.add("random_funny");
         JPushInterface.setTags(getActivity(), tags, new TagAliasCallback() {
@@ -160,9 +163,14 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     }
 
 
-    private int[] COLORS = {ChartUtils.COLOR_BLUE,ChartUtils.COLOR_GREEN,ChartUtils.COLOR_ORANGE,ChartUtils.COLOR_RED,ChartUtils.COLOR_VIOLET};
+    private int[] COLORS = {
+            ChartUtils.COLOR_BLUE,
+            ChartUtils.COLOR_GREEN,
+            ChartUtils.COLOR_ORANGE,
+            ChartUtils.COLOR_RED,
+            ChartUtils.COLOR_VIOLET};
 
-    private void generateColumChartView(List<Integer> list){
+    private void generateColumChartView(List<Integer> list) {
         int subColumsNum = 1;
         int columsNum = list.size();
         List<SubcolumnValue> values;
@@ -173,9 +181,9 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
                 new AxisValue(2).setLabel("第3个门"),
                 new AxisValue(3).setLabel("第4个门"),
                 new AxisValue(4).setLabel("第5个门"));
-        for (int i = 0;i<columsNum;i++){
+        for (int i = 0; i < columsNum; i++) {
             values = new ArrayList<>();
-            for (int j = 0;j<subColumsNum;j++){
+            for (int j = 0; j < subColumsNum; j++) {
                 values.add(new SubcolumnValue(list.get(i), COLORS[i]));
             }
             Column column = new Column(values);
@@ -197,16 +205,19 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("cn.jpush.android.intent.MESSAGE_RECEIVED")){
-                Log.d("jun", "onReceive: "+intent.getStringExtra("cn.jpush.android.CONTENT_TYPE"));
+            if (intent.getAction().equals("cn.jpush.android.intent.MESSAGE_RECEIVED")) {
                 String type = intent.getStringExtra("cn.jpush.android.CONTENT_TYPE");
                 String num = intent.getStringExtra("cn.jpush.android.MESSAGE");
-                Log.d("jun", "onReceive: "+intent.getStringExtra("cn.jpush.android.MESSAGE"));
-                if (type.equals("random_funny")){
-                    Toast.makeText(getActivity(),"Winner:"+num,Toast.LENGTH_SHORT).show();
+                if (type.equals("random_funny")) {
+                    showWinnerView();
                 }
 
             }
         }
     };
+
+    private void showWinnerView(){
+        groupEmojiContainer.startDropping();
+        // 5秒钟进入下一轮
+    }
 }

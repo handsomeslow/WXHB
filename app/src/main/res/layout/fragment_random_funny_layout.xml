@@ -1,57 +1,50 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.luolc.emojirain.EmojiRainLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:id="@+id/group_emoji_container"
     tools:context="com.jx.wxhb.fragment.RandomFunnyFragment">
 
-    <Button
-        android:id="@+id/one_pos"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="第1个"/>
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/two_pos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="第2个"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/random_funny"/>
 
-    <Button
-        android:id="@+id/three_pos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="第3个"/>
+        <RelativeLayout
+            android:id="@+id/out_come_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/four_pos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="第4个"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WINNER"/>
 
-    <Button
-        android:id="@+id/five_pos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="第5个"/>
 
-    <TextView
-        android:id="@+id/history_outcome_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/winner_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/history_outcome_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <lecho.lib.hellocharts.view.ColumnChartView
-        android:id="@+id/actors_chart_view"
-        android:padding="@dimen/Mediumpadding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/winner_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <lecho.lib.hellocharts.view.ColumnChartView
+            android:id="@+id/actors_chart_view"
+            android:padding="@dimen/Mediumpadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</com.luolc.emojirain.EmojiRainLayout>
