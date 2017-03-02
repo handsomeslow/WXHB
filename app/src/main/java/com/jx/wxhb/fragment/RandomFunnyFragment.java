@@ -7,13 +7,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.presenter.RandomFunnyContract;
@@ -45,16 +44,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  */
 public class RandomFunnyFragment extends BaseFragment implements RandomFunnyContract.View {
 
-    @Bind(R.id.one_pos)
-    Button onePos;
-    @Bind(R.id.two_pos)
-    Button twoPos;
-    @Bind(R.id.three_pos)
-    Button threePos;
-    @Bind(R.id.four_pos)
-    Button fourPos;
-    @Bind(R.id.five_pos)
-    Button fivePos;
+
     @Bind(R.id.history_outcome_text_view)
     TextView historyOutcomeTextView;
     @Bind(R.id.winner_text_view)
@@ -65,6 +55,21 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Bind(R.id.group_emoji_container)
     EmojiRainLayout groupEmojiContainer;
+
+    @Bind(R.id.position_0)
+    ImageView position0;
+    @Bind(R.id.position_1)
+    ImageView position1;
+    @Bind(R.id.position_2)
+    ImageView position2;
+    @Bind(R.id.position_3)
+    ImageView position3;
+    @Bind(R.id.position_4)
+    ImageView position4;
+    @Bind(R.id.score)
+    TextView score;
+    @Bind(R.id.out_come_layout)
+    LinearLayout outComeLayout;
 
 
     private String title;
@@ -137,27 +142,27 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         winnerTextView.setText(winner);
     }
 
-    @OnClick(R.id.one_pos)
+    @OnClick(R.id.position_0)
     public void onOnePositionClick() {
         presenter.addBetInfo(0, 10);
     }
 
-    @OnClick(R.id.two_pos)
+    @OnClick(R.id.position_1)
     public void onTwoPositionClick() {
         presenter.addBetInfo(1, 10);
     }
 
-    @OnClick(R.id.three_pos)
+    @OnClick(R.id.position_2)
     public void onThreePositionClick() {
         presenter.addBetInfo(2, 10);
     }
 
-    @OnClick(R.id.four_pos)
+    @OnClick(R.id.position_3)
     public void onFourPositionClick() {
         presenter.addBetInfo(3, 10);
     }
 
-    @OnClick(R.id.five_pos)
+    @OnClick(R.id.position_4)
     public void onFivePositionClick() {
         presenter.addBetInfo(4, 10);
     }
@@ -206,18 +211,21 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("cn.jpush.android.intent.MESSAGE_RECEIVED")) {
-                String type = intent.getStringExtra("cn.jpush.android.CONTENT_TYPE");
-                String num = intent.getStringExtra("cn.jpush.android.MESSAGE");
+                String type = intent.getStringExtra("cn.jpush.android.TITLE");
+                String num = intent.getStringExtra("cn.jpush.android.CONTENT_TYPE");
+                String id = intent.getStringExtra("cn.jpush.android.MESSAGE");
                 if (type.equals("random_funny")) {
-                    showWinnerView();
+                    showWinnerView(num);
                 }
 
             }
         }
     };
 
-    private void showWinnerView(){
+    private void showWinnerView(String num) {
         groupEmojiContainer.startDropping();
+        score.setText(num);
         // 5秒钟进入下一轮
+        outComeLayout.setVisibility(View.VISIBLE);
     }
 }

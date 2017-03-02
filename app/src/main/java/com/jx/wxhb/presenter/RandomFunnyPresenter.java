@@ -102,6 +102,9 @@ public class RandomFunnyPresenter implements RandomFunnyContract.Presenter {
                                         pullRandomFunnyData();
                                     }
                                 });
+//                                AVUser.getCurrentUser().put("randomFunny",randomFunnyNote);
+//                                AVUser.getCurrentUser().saveInBackground();
+
                             }
                         });
                     }
