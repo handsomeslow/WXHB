@@ -50,19 +50,21 @@
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
 
-        <!--<receiver-->
-            <!--android:name=".service.PushRecevier"-->
-            <!--android:enabled="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.intent.REGISTRATION" />-->
-                <!--<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />-->
-                <!--<action android:name="cn.jpush.android.intent.CONNECTION" />-->
-                <!--<category android:name="com.jx.wxhb" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".service.PushRecevier" -->
+        <!-- android:enabled="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.REGISTRATION" /> -->
+        <!-- <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" /> -->
+        <!-- <action android:name="cn.jpush.android.intent.CONNECTION" /> -->
+        <!-- <category android:name="com.jx.wxhb" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity android:name=".activity.LuckyGroupActivity" />
+        <activity android:name=".activity.PublishLuckyGroupActivity"></activity>
     </application>
 
 </manifest>

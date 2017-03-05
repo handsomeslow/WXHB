@@ -19,4 +19,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="random_funny_title">下面5个红包有一个不是空的，猜猜看是哪个？</string>
+    <string name="lucky_publish_hint">请输入发布内容</string>
 </resources>

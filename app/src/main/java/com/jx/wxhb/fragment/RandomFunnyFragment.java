@@ -47,8 +47,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Bind(R.id.history_outcome_text_view)
     TextView historyOutcomeTextView;
-    @Bind(R.id.winner_text_view)
-    TextView winnerTextView;
+
     // 投注图标
     @Bind(R.id.actors_chart_view)
     ColumnChartView actorsChartView;
@@ -66,17 +65,19 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
     ImageView position3;
     @Bind(R.id.position_4)
     ImageView position4;
+
     @Bind(R.id.score)
     TextView score;
     @Bind(R.id.out_come_layout)
     LinearLayout outComeLayout;
+    @Bind(R.id.next_round)
+    TextView nextRound;
 
+    private List<ImageView> postionsImageView;
 
     private String title;
 
     private RandomFunnyContract.Presenter presenter;
-
-    PushRecevier pushRecevier;
 
     public static RandomFunnyFragment newInstance(String title) {
         RandomFunnyFragment fragment = new RandomFunnyFragment();
@@ -110,13 +111,36 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         presenter.pullRandomFunnyHistoryData();
         groupEmojiContainer.addEmoji(R.drawable.emoj_hb);
         groupEmojiContainer.addEmoji(R.drawable.emoj_yb);
-
+        initEvent();
+        postionsImageView = new ArrayList<>();
+        postionsImageView.add(position0);
+        postionsImageView.add(position1);
+        postionsImageView.add(position2);
+        postionsImageView.add(position3);
+        postionsImageView.add(position4);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    private void initView(){
+        outComeLayout.setVisibility(View.GONE);
+        for (int i =0;i<postionsImageView.size();++i){
+            postionsImageView.get(i).setSelected(false);
+        }
+    }
+
+    private void initEvent(){
+        nextRound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.pullRandomFunnyData();
+                initView();
+            }
+        });
     }
 
 
@@ -138,8 +162,7 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
 
     @Override
     public void initHistoryFunnyView(String outcome, String winner) {
-        historyOutcomeTextView.setText(outcome);
-        winnerTextView.setText(winner);
+        //historyOutcomeTextView.setText(outcome);
     }
 
     @OnClick(R.id.position_0)
@@ -222,9 +245,14 @@ public class RandomFunnyFragment extends BaseFragment implements RandomFunnyCont
         }
     };
 
-    private void showWinnerView(String num) {
+    private void showWinnerView(String numStr) {
+        int num = Integer.valueOf(numStr);
         groupEmojiContainer.startDropping();
-        score.setText(num);
+        score.setText(numStr);
+        for (int i =0;i<postionsImageView.size();++i){
+            postionsImageView.get(i).setSelected(true);
+        }
+        postionsImageView.get(num).setImageResource(R.drawable.red_packet_winner);
         // 5秒钟进入下一轮
         outComeLayout.setVisibility(View.VISIBLE);
     }

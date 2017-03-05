@@ -10,6 +10,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.MainTabAdapter;
+import com.jx.wxhb.fragment.FunnyFragment;
 import com.jx.wxhb.fragment.HotNewsFragment;
 import com.jx.wxhb.fragment.LuckMoneyFragment;
 import com.jx.wxhb.fragment.MyFragment;
@@ -29,6 +30,7 @@ public class MainTabActivity extends BaseActivity
     MyFragment myFragment;
     OfficialFragment officialFragment;
     RandomFunnyFragment randomFunnyFragment;
+    FunnyFragment funnyFragment;
 
     // 底部tab
     @Bind(R.id.bottom_bar)
@@ -69,8 +71,11 @@ public class MainTabActivity extends BaseActivity
         fragments.add(luckMoneyFragment);
         hotNewsFragment = HotNewsFragment.newInstance("今日微信热点");
         fragments.add(hotNewsFragment);
-        randomFunnyFragment = RandomFunnyFragment.newInstance("猜猜乐");
-        fragments.add(randomFunnyFragment);
+//        randomFunnyFragment = RandomFunnyFragment.newInstance("猜猜乐");
+//        fragments.add(randomFunnyFragment);
+        funnyFragment = FunnyFragment.newInstance();
+        fragments.add(funnyFragment);
+        officialFragment = OfficialFragment.newInstance("");
         myFragment = MyFragment.newInstance("设置");
         fragments.add(myFragment);
         return fragments;

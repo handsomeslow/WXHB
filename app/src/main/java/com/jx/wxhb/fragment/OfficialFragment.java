@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 公众号
  */
 public class OfficialFragment extends BaseFragment implements OfficialContract.View {
 
