@@ -73,7 +73,7 @@ public class OfficialPresenter implements OfficialContract.Presenter {
                         exception.printStackTrace();
                         info.setName("未注册用户");
                     }
-                    info.setCreateTime(new SimpleDateFormat("yyyy.mm.dd HH:MM").format(object.getCreatedAt()));
+                    info.setCreateTime(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(object.getCreatedAt()));
                     comments.add(info);
                 }
                 view.refreshCommentView(comments);

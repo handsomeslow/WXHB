@@ -68,7 +68,7 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         LuckyGroupInfo info = list.get(position);
         holder.nameTextView.setText(info.getOwer().getUsername());
         holder.contentTextView.setText(info.getContent());
-        holder.dateTextView.setText(new SimpleDateFormat("yyyy.mm.dd HH:MM").format(info.getPublishDate()));
+        holder.dateTextView.setText(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(info.getPublishDate()));
         ImageLoaderUtil.displayImageByObjectId(info.getOwer().getString(CloudContentUtil.USER_AVATAR),holder.avatarImageView);
         if (info.getPhotoList()!=null && info.getPhotoList().size()>0){
             ImageLoaderUtil.displayImageByObjectId(info.getPhotoList().get(0),holder.photoImageView);
