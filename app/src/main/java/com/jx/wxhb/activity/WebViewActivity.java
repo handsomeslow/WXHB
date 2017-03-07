@@ -46,7 +46,7 @@ public class WebViewActivity extends BaseActivity {
         title = getIntent().getStringExtra(ContentUtil.EXTRA_ARG_TITLE) !=null ?
                 getIntent().getStringExtra(ContentUtil.EXTRA_ARG_TITLE):"文章详情";
         setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        showBackButton();
         initView();
     }
 

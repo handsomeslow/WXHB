@@ -25,4 +25,15 @@ public class CloudContentUtil {
     public static final String LUCKY_GROUP_OWNER = "owner";
     public static final String LUCKY_GROUP_CONTENT = "content";
     public static final String LUCKY_GROUP_PHOTOS = "photos";
+
+
+    // 推荐文章或公众号
+    public static final String PUSH_CONTENT_TABLE = "TopContent";
+    public static final String PUSH_CONTENT_TITLE = "title";
+    public static final String PUSH_CONTENT_IMAGE = "image";
+    public static final String PUSH_CONTENT_TYPE = "type";
+    public static final String PUSH_CONTENT_URL = "url";
+    public static final String PUSH_CONTENT_OFFICIAL_ID = "officialId";
+    public static final String PUSH_CONTENT_IS_EFFECTIVE = "isEffective";
+    public static final String PUSH_CONTENT_PRIORITY = "priority";
 }

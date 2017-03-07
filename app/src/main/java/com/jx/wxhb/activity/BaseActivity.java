@@ -23,6 +23,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return fm.findFragmentById(id);
     }
 
+    protected void showBackButton(){
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

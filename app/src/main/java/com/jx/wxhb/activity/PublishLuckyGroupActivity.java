@@ -71,6 +71,7 @@ public class PublishLuckyGroupActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_lucky_group_layout);
         ButterKnife.bind(this);
+        showBackButton();
         FullyGridLayoutManager manager = new FullyGridLayoutManager(PublishLuckyGroupActivity.this,
                 4, GridLayoutManager.VERTICAL, false);
         photosPickerView.setLayoutManager(manager);

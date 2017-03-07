@@ -40,6 +40,8 @@ public class LuckyGroupActivity extends BaseActivity implements LuckyGroupContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lucky_group_layout);
         ButterKnife.bind(this);
+        setTitle("红包群");
+        showBackButton();
         initView();
         presenter = new LuckyGroupPresenter(this);
         presenter.pullGroupList();
