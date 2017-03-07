@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.jx.wxhb.fragment.TopContentFragment">
+
+    <lecho.lib.hellocharts.view.hack.HackyViewPager
+        android:id="@+id/top_content_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"/>
+
+</FrameLayout>

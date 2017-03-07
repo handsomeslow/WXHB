@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/ContentBackgroundColor"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/backgound_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/position_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/Normalpadding"
+        tools:text="1/5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/Mediumpadding"
+        android:paddingRight="@dimen/Mediumpadding"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textAppearance="@style/TitleTextStyle"
+        tools:text="这是标题呵呵哈哈哈或或或或或或或或或或呵呵哈"
+        android:layout_toRightOf="@id/position_text_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>
