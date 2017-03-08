@@ -114,7 +114,7 @@ public class OfficialFragment extends BaseFragment implements OfficialContract.V
         if (!TextUtils.isEmpty(commentEditView.getText().toString())) {
             presenter.addCommentData(commentEditView.getText().toString(), officialId);
         } else {
-            Toast.makeText(getActivity(), "是不是忘记填内容里？", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "是不是忘记填内容了？", Toast.LENGTH_SHORT).show();
         }
     }
 }

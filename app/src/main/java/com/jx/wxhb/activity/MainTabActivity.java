@@ -30,7 +30,7 @@ public class MainTabActivity extends BaseActivity
     LuckMoneyFragment luckMoneyFragment;
     HotNewsFragment hotNewsFragment;
     MyFragment myFragment;
-    OfficialFragment officialFragment;
+    //OfficialFragment officialFragment;
     RandomFunnyFragment randomFunnyFragment;
     FunnyFragment funnyFragment;
 
@@ -77,7 +77,7 @@ public class MainTabActivity extends BaseActivity
 //        fragments.add(randomFunnyFragment);
         funnyFragment = FunnyFragment.newInstance();
         fragments.add(funnyFragment);
-        officialFragment = OfficialFragment.newInstance("");
+        //officialFragment = OfficialFragment.newInstance("");
         myFragment = MyFragment.newInstance("设置");
         fragments.add(myFragment);
         return fragments;
@@ -96,10 +96,10 @@ public class MainTabActivity extends BaseActivity
                 setTitle("红包大作战");
                 break;
             case 1:
-                setTitle("今日微信热点");
+                setTitle("微信热点");
                 break;
             case 2:
-                setTitle("猜猜乐");
+                setTitle("发现有趣");
                 break;
             case 3:
                 setTitle("设置");

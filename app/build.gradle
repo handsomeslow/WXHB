@@ -40,12 +40,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:multidex:1.0.1"
 
     //compile 'io.reactivex:rxjava:1.1.0'
     compile('com.github.LuckSiege.PictureSelector:picture_library:v1.2.5') {
         exclude module: 'rxjava'
     }
+    compile 'com.android.support:multidex:1.0.1'
     compile 'cn.jiguang.sdk:jpush:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.0.0'
     compile 'com.android.support:appcompat-v7:25.1.1'

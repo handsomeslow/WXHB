@@ -64,8 +64,8 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
     }
 
     @Override
-    public void onBindViewHolder(PushGroupViewHolder holder, int position) {
-        LuckyGroupInfo info = list.get(position);
+    public void onBindViewHolder(PushGroupViewHolder holder, final int position) {
+        final LuckyGroupInfo info = list.get(position);
         holder.nameTextView.setText(info.getOwer().getUsername());
         holder.contentTextView.setText(info.getContent());
         holder.dateTextView.setText(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(info.getPublishDate()));
@@ -73,6 +73,14 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         if (info.getPhotoList()!=null && info.getPhotoList().size()>0){
             ImageLoaderUtil.displayImageByObjectId(info.getPhotoList().get(0),holder.photoImageView);
         }
+        holder.addCommImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickListener!=null){
+                    onClickListener.OnClick(info,position);
+                }
+            }
+        });
     }
 
     @Override
@@ -113,6 +121,8 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         TextView dateTextView;
         @Bind(R.id.photo_image_view)
         ImageView photoImageView;
+        @Bind(R.id.add_comment_botton)
+        ImageView addCommImageView;
 
 
         public PushGroupViewHolder(View itemView) {
@@ -120,6 +130,16 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
             ButterKnife.bind(this, itemView);
         }
 
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    private OnClickListener onClickListener;
+
+    public interface OnClickListener{
+        void OnClick(LuckyGroupInfo info,int position);
     }
 
 }

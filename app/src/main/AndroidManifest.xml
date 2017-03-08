@@ -64,7 +64,8 @@
         <!-- </intent-filter> -->
         <!-- </receiver> -->
         <activity android:name=".activity.LuckyGroupActivity" />
-        <activity android:name=".activity.PublishLuckyGroupActivity"></activity>
+        <activity android:name=".activity.PublishLuckyGroupActivity" />
+        <activity android:name=".activity.OfficialBrowsingActivity"></activity>
     </application>
 
 </manifest>
