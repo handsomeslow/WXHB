@@ -6,13 +6,15 @@ package com.jx.wxhb.model;
  */
 
 public class CommentInfo {
-    String id;
+    private String id;
 
-    String name;
+    private String name;
 
-    String content;
+    private String content;
 
-    String createTime;
+    private String createTime;
+
+    private int order;
 
     public String getId() {
         return id;
@@ -44,5 +46,13 @@ public class CommentInfo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

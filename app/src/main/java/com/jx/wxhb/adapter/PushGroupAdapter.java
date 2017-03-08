@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jx.wxhb.R;
@@ -93,13 +94,18 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         });
 
         // 评论
-        View view = View.inflate(context, R.layout.item_comment_layout, null);
+
         if (list.get(position) != null && list.get(position).getCommentList()!=null){
+            holder.commentLayout.removeAllViews();
             for (CommentInfo commentInfo:list.get(position).getCommentList()){
+                View view = View.inflate(context, R.layout.item_comment_layout, null);
                 TextView name = (TextView) view.findViewById(R.id.ower_name_text_view);
                 name.setText(commentInfo.getName());
                 TextView content = (TextView) view.findViewById(R.id.content_text_view);
                 content.setText(commentInfo.getContent());
+                TextView date = (TextView) view.findViewById(R.id.time_name_text_view);
+                date.setText(commentInfo.getCreateTime());
+                holder.commentLayout.addView(view);
             }
         }
     }
@@ -133,9 +139,8 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
     }
 
     public void changeItemComments(List<CommentInfo> comments, int position){
-        LuckyGroupInfo luckyGroupInfo = list.get(position);
-        luckyGroupInfo.setCommentList(comments);
-        insertInternal(list,luckyGroupInfo,position);
+        list.get(position).setCommentList(comments);
+        notifyDataSetChanged();
     }
 
     public interface OnClickListener{
@@ -164,7 +169,8 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         ImageView photoImageView;
         @Bind(R.id.add_comment_botton)
         ImageView addCommentBotton;
-
+        @Bind(R.id.comment_layout)
+        LinearLayout commentLayout;
 
 
         public PushGroupViewHolder(View itemView) {
