@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -28,7 +30,7 @@ public class MainTabActivity extends BaseActivity
     LuckMoneyFragment luckMoneyFragment;
     HotNewsFragment hotNewsFragment;
     MyFragment myFragment;
-    OfficialFragment officialFragment;
+    //OfficialFragment officialFragment;
     RandomFunnyFragment randomFunnyFragment;
     FunnyFragment funnyFragment;
 
@@ -75,7 +77,7 @@ public class MainTabActivity extends BaseActivity
 //        fragments.add(randomFunnyFragment);
         funnyFragment = FunnyFragment.newInstance();
         fragments.add(funnyFragment);
-        officialFragment = OfficialFragment.newInstance("");
+        //officialFragment = OfficialFragment.newInstance("");
         myFragment = MyFragment.newInstance("设置");
         fragments.add(myFragment);
         return fragments;
@@ -94,10 +96,10 @@ public class MainTabActivity extends BaseActivity
                 setTitle("红包大作战");
                 break;
             case 1:
-                setTitle("今日微信热点");
+                setTitle("微信热点");
                 break;
             case 2:
-                setTitle("猜猜乐");
+                setTitle("发现有趣");
                 break;
             case 3:
                 setTitle("设置");
@@ -123,5 +125,23 @@ public class MainTabActivity extends BaseActivity
     @Override
     public void onTabReselected(int position) {
 
+    }
+
+    //记录用户首次点击返回键的时间
+    private long firstTime=0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-firstTime>2000){
+                Toast.makeText(MainTabActivity.this,"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                firstTime=System.currentTimeMillis();
+            }else{
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

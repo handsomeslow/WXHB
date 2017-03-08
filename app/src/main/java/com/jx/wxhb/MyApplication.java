@@ -1,8 +1,11 @@
 package com.jx.wxhb;
 
 import android.app.Application;
+import android.content.Context;
+import android.view.WindowManager;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.jx.wxhb.utils.UIUtils;
 
 import cn.jpush.android.api.JPushInterface;
 import io.realm.Realm;
@@ -29,5 +32,8 @@ public class MyApplication extends Application {
         AVOSCloud.setDebugLogEnabled(false);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        WindowManager mwm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        UIUtils.initDisplayMetrics(mwm);
     }
 }

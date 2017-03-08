@@ -166,6 +166,7 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
         ImageView addCommentBotton;
 
 
+
         public PushGroupViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

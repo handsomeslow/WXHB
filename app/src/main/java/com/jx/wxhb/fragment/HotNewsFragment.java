@@ -25,10 +25,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * 微信热门文章
  */
 public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
-    List<HotNewInfo> newList;
+    private List<HotNewInfo> newList;
 
     @Bind(R.id.new_list_view)
     UltimateRecyclerView newListView;
@@ -36,9 +37,11 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
     private String title;
 
-    NewsInfoAdapter adapter;
+    private NewsInfoAdapter adapter;
 
-    NewsPresenter presenter;
+    private NewsPresenter presenter;
+
+    private TopContentFragment topContentFragment;
 
     public static HotNewsFragment newInstance(String title) {
         HotNewsFragment fragment = new HotNewsFragment();
@@ -92,7 +95,14 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 //                newListView.setRefreshing(true);
 //            }
 //        });
+        initTopContentFragment();
+    }
 
+    private void initTopContentFragment(){
+        if (topContentFragment == null){
+            topContentFragment = TopContentFragment.newInstance();
+            addFragment(topContentFragment,R.id.top_content_wrap);
+        }
     }
 
 
