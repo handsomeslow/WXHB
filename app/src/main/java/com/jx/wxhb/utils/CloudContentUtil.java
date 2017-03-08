@@ -25,4 +25,5 @@ public class CloudContentUtil {
     public static final String LUCKY_GROUP_OWNER = "owner";
     public static final String LUCKY_GROUP_CONTENT = "content";
     public static final String LUCKY_GROUP_PHOTOS = "photos";
+    public static final String LUCKY_GROUP_COMMENT = "groupComments";
 }

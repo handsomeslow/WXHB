@@ -1,5 +1,6 @@
 package com.jx.wxhb.presenter;
 
+import com.jx.wxhb.model.CommentInfo;
 import com.jx.wxhb.model.HotNewInfo;
 import com.jx.wxhb.model.LuckyGroupInfo;
 
@@ -18,6 +19,8 @@ public class LuckyGroupContract {
         void loadMoreDataSuccess(List<LuckyGroupInfo> groupInfoList);
 
         void loadMoreDataFaild();
+
+        void refreshComment(List<CommentInfo> comments, int position);
     }
 
     public interface Presenter {
@@ -25,7 +28,9 @@ public class LuckyGroupContract {
 
         void publishGrouInfo();
 
-        void addComment(String content, final String id);
+        void refreshItemComment(String id,int position);
+
+        void addComment(String content, String id, int position);
     }
 
 }

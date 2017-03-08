@@ -3,14 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/Smallpadding"
-    android:paddingLeft="@dimen/Smallpadding"
-    android:paddingRight="@dimen/Smallpadding"
-    android:paddingTop="@dimen/Smallpadding"
     tools:context="com.jx.wxhb.activity.LuckyGroupActivity">
 
     <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
         android:id="@+id/lucky_group_list_view"
+        android:paddingBottom="@dimen/Smallpadding"
+        android:paddingLeft="@dimen/Smallpadding"
+        android:paddingRight="@dimen/Smallpadding"
+        android:paddingTop="@dimen/Smallpadding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/add_comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/LightGrayColor"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <EditText
+            android:id="@+id/comment_edit_view"
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="添加评论"/>
+
+        <ImageView
+            android:id="@+id/add_comment_botton"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/finish_comment_icon"/>
+    </LinearLayout>
 </RelativeLayout>

@@ -9,23 +9,32 @@ import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.jx.wxhb.model.CommentInfo;
 import com.jx.wxhb.model.LuckyGroupInfo;
 import com.jx.wxhb.utils.CloudContentUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by 徐俊 on 2017/3/5.
  */
 
 public class LuckyGroupPresenter implements LuckyGroupContract.Presenter {
-
+    List<LuckyGroupInfo> infoList;
     private LuckyGroupContract.View view;
 
     public LuckyGroupPresenter(LuckyGroupContract.View view) {
         this.view = view;
+        infoList = new ArrayList<LuckyGroupInfo>();
     }
 
     @Override
@@ -60,7 +69,7 @@ public class LuckyGroupPresenter implements LuckyGroupContract.Presenter {
     }
 
     @Override
-    public void addComment(String content,final String id) {
+    public void addComment(final String content, final String id, final int position) {
         final AVObject group = AVObject.createWithoutData(CloudContentUtil.LUCKY_GROUP_TABLE, id);
 
         final AVObject comment = new AVObject(CloudContentUtil.LUCKY_GROUP_COMMENT_TABLE);
@@ -76,12 +85,45 @@ public class LuckyGroupPresenter implements LuckyGroupContract.Presenter {
                     @Override
                     public void done(AVException e) {
                         if (e !=null){
-                            Log.d("jun", "addCommentData:"+e.getMessage());
+                            e.printStackTrace();
                             return;
                         }
-                        pullGroupList();
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void refreshItemComment(String id, final int position) {
+        AVObject groupTable = AVObject.createWithoutData(CloudContentUtil.LUCKY_GROUP_TABLE, id);
+        AVRelation<AVObject> relation = groupTable.getRelation(CloudContentUtil.COMMENT);
+        AVQuery<AVObject> query = relation.getQuery();
+        // 关键代码，加上这一句返回对象，不加返回objectId
+        query.orderByDescending(CloudContentUtil.CREATE_DATE);
+        query.include(CloudContentUtil.COMMENT_OWNER);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                // list 是一个 AVObject 的 List，它包含所有当前 todoFolder 的 tags
+                if (e != null) {
+                    Log.d("jun", "refreshItemComment: " + e.getMessage());
+                    return;
+                }
+                List<CommentInfo> comments = new ArrayList<CommentInfo>();
+                for (AVObject object : list) {
+                    CommentInfo info = new CommentInfo();
+                    info.setContent(object.getString(CloudContentUtil.COMMENT_CONTENT));
+                    try {
+                        info.setName(object.getAVUser(CloudContentUtil.COMMENT_OWNER).getUsername());
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                        info.setName("未注册用户");
+                    }
+                    info.setCreateTime(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(object.getCreatedAt()));
+                    comments.add(info);
+                }
+                view.refreshComment(comments, position);
             }
         });
     }

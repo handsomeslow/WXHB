@@ -89,19 +89,6 @@ public class OfficialPresenter implements OfficialContract.Presenter {
         comment.put("content",content);
         comment.put("owner",AVUser.getCurrentUser());
         comment.put("official",official);
-//        official.getRelation("comments").add(comment);
-//        official.saveInBackground();
-//        comment.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(AVException e) {
-//                if (e !=null){
-//                    Log.d("jun", "addCommentData:"+e.getMessage());
-//                    return;
-//                }
-//                pullCommentData(id);
-//            }
-//
-//        });
         AVObject.saveAllInBackground(Arrays.asList(comment), new SaveCallback() {
             @Override
             public void done(AVException e) {

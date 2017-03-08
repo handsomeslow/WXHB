@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.avos.avoscloud.AVUser;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class LuckyGroupInfo implements Parcelable {
     private String content;
     private List<String> photoList;
     private Date publishDate;
+    private List<CommentInfo> commentList;
 
 
     public AVUser getOwer() {
@@ -70,6 +72,17 @@ public class LuckyGroupInfo implements Parcelable {
         this.publishDate = publishDate;
     }
 
+    public List<CommentInfo> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<CommentInfo> commentList) {
+        this.commentList = commentList;
+    }
+
+
+    public LuckyGroupInfo() {
+    }
 
     @Override
     public int describeContents() {
@@ -79,25 +92,27 @@ public class LuckyGroupInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
+        dest.writeParcelable(this.ower, flags);
         dest.writeString(this.title);
         dest.writeString(this.content);
         dest.writeStringList(this.photoList);
         dest.writeLong(this.publishDate != null ? this.publishDate.getTime() : -1);
-    }
-
-    public LuckyGroupInfo() {
+        dest.writeList(this.commentList);
     }
 
     protected LuckyGroupInfo(Parcel in) {
         this.id = in.readString();
+        this.ower = in.readParcelable(AVUser.class.getClassLoader());
         this.title = in.readString();
         this.content = in.readString();
         this.photoList = in.createStringArrayList();
-        long tmpPuishDate = in.readLong();
-        this.publishDate = tmpPuishDate == -1 ? null : new Date(tmpPuishDate);
+        long tmpPublishDate = in.readLong();
+        this.publishDate = tmpPublishDate == -1 ? null : new Date(tmpPublishDate);
+        this.commentList = new ArrayList<CommentInfo>();
+        in.readList(this.commentList, CommentInfo.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<LuckyGroupInfo> CREATOR = new Parcelable.Creator<LuckyGroupInfo>() {
+    public static final Creator<LuckyGroupInfo> CREATOR = new Creator<LuckyGroupInfo>() {
         @Override
         public LuckyGroupInfo createFromParcel(Parcel source) {
             return new LuckyGroupInfo(source);
