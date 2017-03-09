@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,17 +52,14 @@ public class PublishLuckyGroupActivity extends BaseActivity {
 
     @Bind(R.id.input_edit_text)
     EditText inputEditText;
-//    @Bind(R.id.add_photo_image_view)
-//    ImageView addPhotoImageView;
-    @Bind(R.id.publish_button)
-    Button publishButton;
+
     @Bind(R.id.photos_picker_view)
     RecyclerView photosPickerView;
 
     PhotosPickerAdapter adapter;
     private List<LocalMedia> photos;
     private int selectMode = FunctionConfig.MODE_MULTIPLE;
-    private int maxSelectNum = 9;// 图片最大可选数量
+    private int maxSelectNum = 1;// 图片最大可选数量
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent();
@@ -87,33 +88,38 @@ public class PublishLuckyGroupActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.publish_button)
     public void onPublishClick() {
-        if (!inputEditText.getText().toString().isEmpty()) {
+        if (!TextUtils.isEmpty(inputEditText.getText().toString())) {
             publishLuckyGroup(inputEditText.getText().toString());
+        } else {
+            Toast.makeText(PublishLuckyGroupActivity.this, "还未输入内容哦~", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void publishLuckyGroup(final String content) {
         Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(final Subscriber<? super String> subscriber) {
-                ImageLoaderUtil.updateImageToCloud((UserUtil.getLoginedUser().getUsername() + ".png"),
-                        photos.get(0).getPath(),
-                        new ImageLoaderUtil.OnImageCallback() {
-                            @Override
-                            public void onSuccess(Bitmap bitmap, String objectId) {
-                                Toast.makeText(PublishLuckyGroupActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                                subscriber.onNext(objectId);
-                            }
+                if (photos==null || photos.get(0)==null || photos.get(0).getCutPath()==null){
+                    subscriber.onNext(null);
+                } else {
+                    ImageLoaderUtil.updateImageToCloud((UserUtil.getLoginedUser().getUsername() + ".png"),
+                            photos.get(0).getCutPath(),
+                            new ImageLoaderUtil.OnImageCallback() {
+                                @Override
+                                public void onSuccess(Bitmap bitmap, String objectId) {
+                                    Toast.makeText(PublishLuckyGroupActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                                    subscriber.onNext(objectId);
+                                }
 
-                            @Override
-                            public void onError(String msg) {
-                                Toast.makeText(PublishLuckyGroupActivity.this, "上传失败" + msg, Toast.LENGTH_SHORT).show();
-                                Log.d("jun", "onError: " + msg);
-                            }
-                        });
+                                @Override
+                                public void onError(String msg) {
+                                    Toast.makeText(PublishLuckyGroupActivity.this, "上传失败" + msg, Toast.LENGTH_SHORT).show();
+                                    Log.d("jun", "onError: " + msg);
+                                }
+                            });
+                }
+
             }
         }).subscribeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<String>() {
@@ -131,9 +137,11 @@ public class PublishLuckyGroupActivity extends BaseActivity {
                     public void onNext(final String photo) {
                         AVObject group = new AVObject(CloudContentUtil.LUCKY_GROUP_TABLE);
                         group.put(CloudContentUtil.LUCKY_GROUP_CONTENT, content);
-                        List<String> photos = new ArrayList<String>();
-                        photos.add(photo);
-                        group.put(CloudContentUtil.LUCKY_GROUP_PHOTOS, photos);
+                        if (photo!=null){
+                            List<String> photos = new ArrayList<String>();
+                            photos.add(photo);
+                            group.put(CloudContentUtil.LUCKY_GROUP_PHOTOS, photos);
+                        }
                         group.put(CloudContentUtil.LUCKY_GROUP_OWNER, AVUser.getCurrentUser());
                         group.saveInBackground(new SaveCallback() {
                             @Override
@@ -153,22 +161,6 @@ public class PublishLuckyGroupActivity extends BaseActivity {
 
 
     }
-
-//    @OnClick(R.id.add_photo_image_view)
-//    public void onAddPhotosClick(){
-//        IPicker.setLimit(3);
-//        IPicker.open(getApplicationContext());
-//        IPicker.setCropEnable(false);
-//        IPicker.setOnSelectedListener(new IPicker.OnSelectedListener() {
-//            @Override
-//            public void onSelected(List<String> paths) {
-//                if (photos != null){
-//                    photos.clear();
-//                }
-//                photos = paths;
-//            }
-//        });
-//    }
 
     /**
      * 删除图片回调接口
@@ -234,8 +226,8 @@ public class PublishLuckyGroupActivity extends BaseActivity {
                     config.setShowCamera(true);
                     config.setEnablePreview(true);
                     config.setEnableCrop(true);
-//                    config.setCropW(cropW);
-//                    config.setCropH(cropH);
+//                    config.setCropW(256);
+//                    config.setCropH(256);
                     config.setCheckNumMode(true);
                     config.setCompressQuality(100);
                     config.setImageSpanCount(4);
@@ -286,4 +278,21 @@ public class PublishLuckyGroupActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.publish_button:
+                onPublishClick();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

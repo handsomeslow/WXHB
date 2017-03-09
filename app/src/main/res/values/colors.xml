@@ -22,7 +22,7 @@
 
     <color name="black_overlay">#66000000</color>
 
-    <color name="lineColor">#555555</color>
+    <color name="lineColor">#cccccc</color>
     <color name="PageBackgroundColor">#cccccc</color>
     <color name="ContentBackgroundColor">#ffffff</color>
 
