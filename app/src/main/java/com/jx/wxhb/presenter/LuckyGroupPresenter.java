@@ -49,29 +49,12 @@ public class LuckyGroupPresenter implements LuckyGroupContract.Presenter {
                     info.setOwer(avObject.getAVUser(CloudContentUtil.LUCKY_GROUP_OWNER));
                     info.setPublishDate(avObject.getCreatedAt());
                     info.setPhotoList(avObject.getList(CloudContentUtil.LUCKY_GROUP_PHOTOS));
-//                    List<AVObject> commentList = avObject.getList(CloudContentUtil.COMMENT,AVObject.class);
-//                    if (commentList!=null && commentList.size()>0){
-//                        List<CommentInfo> commentInfoList = new ArrayList<CommentInfo>();
-//                        for (AVObject comment:commentList){
-//                            CommentInfo commentInfo = new CommentInfo();
-//                            commentInfo.setContent(comment.getString(CloudContentUtil.COMMENT_CONTENT));
-//                            commentInfo.setName(comment.getAVUser(CloudContentUtil.COMMENT_OWNER).getUsername());
-//                            commentInfo.setCreateTime(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(comment.getCreatedAt()));
-//                            commentInfoList.add(commentInfo);
-//                        }
-//                        info.setCommentList(commentInfoList);
-//                    }
                     infoList.add(info);
                     refreshItemComment(avObject.getObjectId(),infoList.size()-1);
                 }
                 view.refreshListsuccess(infoList);
             }
         });
-    }
-
-    @Override
-    public void publishGrouInfo() {
-
     }
 
     @Override

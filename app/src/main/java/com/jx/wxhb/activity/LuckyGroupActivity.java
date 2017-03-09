@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class LuckyGroupActivity extends BaseActivity implements LuckyGroupContract.View {
 
@@ -69,6 +72,11 @@ public class LuckyGroupActivity extends BaseActivity implements LuckyGroupContra
                 @Override
                 public void onAddComment(int position,String id) {
                     addCommentLayout.setVisibility(View.VISIBLE);
+                    commentEditView.setFocusable(true);
+                    commentEditView.setFocusableInTouchMode(true);
+                    commentEditView.requestFocus();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     groupId = id;
                     itemPosition = position;
                 }

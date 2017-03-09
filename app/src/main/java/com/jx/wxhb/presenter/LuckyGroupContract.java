@@ -26,8 +26,6 @@ public class LuckyGroupContract {
     public interface Presenter {
         void pullGroupList();
 
-        void publishGrouInfo();
-
         void refreshItemComment(String id,int position);
 
         void addComment(String content, String id, int position);
