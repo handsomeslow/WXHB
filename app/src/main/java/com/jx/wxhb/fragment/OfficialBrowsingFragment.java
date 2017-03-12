@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jx.wxhb.R;
+import com.jx.wxhb.activity.PurchaseGroupActivity;
 import com.jx.wxhb.model.Item;
 import com.jx.wxhb.utils.UIUtils;
 import com.jx.wxhb.widget.ReverseInterpolator;
@@ -88,6 +89,12 @@ public class OfficialBrowsingFragment extends BaseFragment {
                 }
             }, 500);
         }
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().startActivity(PurchaseGroupActivity.newIntent(getActivity()));
+            }
+        });
     }
 
     @Override
