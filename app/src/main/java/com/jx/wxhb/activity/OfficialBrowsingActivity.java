@@ -7,27 +7,25 @@ import android.support.v4.view.ViewPager;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.OfficialBrowsingAdapter;
+import com.jx.wxhb.model.CommentInfo;
 import com.jx.wxhb.model.Item;
+import com.jx.wxhb.model.OfficialInfo;
+import com.jx.wxhb.presenter.OfficialBrowsingContract;
+import com.jx.wxhb.presenter.OfficialBrowsingPresenter;
+import com.jx.wxhb.presenter.OfficialContract;
+import com.jx.wxhb.presenter.OfficialPresenter;
 import com.jx.wxhb.utils.UIUtils;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lecho.lib.hellocharts.view.hack.HackyViewPager;
 
-public class OfficialBrowsingActivity extends BaseActivity {
+public class OfficialBrowsingActivity extends BaseActivity implements OfficialBrowsingContract.View{
 
-    private static final Item[] ITEMS = {
-            new Item(R.drawable.xkxxh_logo),
-            new Item(R.drawable.chapin_logo),
-            new Item(R.drawable.rmrb_logo),
-            new Item(R.drawable.xkxxh_logo),
-            new Item(R.drawable.chapin_logo),
-            new Item(R.drawable.rmrb_logo),
-            new Item(R.drawable.xkxxh_logo),
-            new Item(R.drawable.chapin_logo),
-            new Item(R.drawable.rmrb_logo)
-    };
+    private OfficialBrowsingContract.Presenter presenter;
 
     @Bind(R.id.official_browsing_viewpager)
     HackyViewPager officialBrowsingViewpager;
@@ -50,8 +48,12 @@ public class OfficialBrowsingActivity extends BaseActivity {
         ButterKnife.bind(this);
         showBackButton();
         setTitle("公众号");
+        presenter = new OfficialBrowsingPresenter(this);
+        presenter.pullOfficialList();
+    }
 
-        adapter = new OfficialBrowsingAdapter(getSupportFragmentManager(),ITEMS);
+    private void initBrowsing(List<OfficialInfo>  officialInfoList){
+        adapter = new OfficialBrowsingAdapter(getSupportFragmentManager(),officialInfoList);
         officialBrowsingViewpager.setClipToPadding(false);
         int s = UIUtils.dip2Px(10);
         officialBrowsingViewpager.setPadding(s, 0, s, 0);
@@ -72,5 +74,10 @@ public class OfficialBrowsingActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void refreshBrowsing(List<OfficialInfo>  officialInfoList) {
+        initBrowsing(officialInfoList);
     }
 }

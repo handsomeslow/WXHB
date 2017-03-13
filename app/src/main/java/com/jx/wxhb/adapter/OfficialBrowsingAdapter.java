@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.jx.wxhb.fragment.OfficialBrowsingFragment;
 import com.jx.wxhb.model.Item;
+import com.jx.wxhb.model.OfficialInfo;
+
+import java.util.List;
 
 /**
  * Desc
@@ -15,13 +18,13 @@ import com.jx.wxhb.model.Item;
 
 public class OfficialBrowsingAdapter extends FragmentStatePagerAdapter {
 
-    private final Item[] items;
+    private List<OfficialInfo>  officialInfoList;
 
     private boolean isFirst;
 
-    public OfficialBrowsingAdapter(FragmentManager fm,Item[] items) {
+    public OfficialBrowsingAdapter(FragmentManager fm,List<OfficialInfo> officialInfoList) {
         super(fm);
-        this.items = items;
+        this.officialInfoList = officialInfoList;
         isFirst = true;
     }
 
@@ -29,11 +32,11 @@ public class OfficialBrowsingAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         boolean is = isFirst && position==0;
         isFirst = false;
-        return OfficialBrowsingFragment.newInstance(items[position],is);
+        return OfficialBrowsingFragment.newInstance(officialInfoList.get(position),is);
     }
 
     @Override
     public int getCount() {
-        return items.length;
+        return officialInfoList.size();
     }
 }

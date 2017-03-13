@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.jx.wxhb.R;
 import com.jx.wxhb.activity.PurchaseGroupActivity;
 import com.jx.wxhb.model.Item;
+import com.jx.wxhb.model.OfficialInfo;
+import com.jx.wxhb.utils.ImageLoaderUtil;
 import com.jx.wxhb.utils.UIUtils;
 import com.jx.wxhb.widget.ReverseInterpolator;
 
@@ -47,10 +49,10 @@ public class OfficialBrowsingFragment extends BaseFragment {
     @Bind(R.id.comment_layout)
     LinearLayout commentLayout;
 
-    private Item item;
+    private OfficialInfo item;
     private boolean isFrist;
 
-    public static OfficialBrowsingFragment newInstance(Item item, boolean position) {
+    public static OfficialBrowsingFragment newInstance(OfficialInfo item, boolean position) {
         OfficialBrowsingFragment fragment = new OfficialBrowsingFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM_ITEM, item);
@@ -80,7 +82,7 @@ public class OfficialBrowsingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        picture.setImageResource(item.getImage());
+        initView();
         if (isFrist) {
             itemView.postDelayed(new Runnable() {
                 @Override
@@ -92,9 +94,16 @@ public class OfficialBrowsingFragment extends BaseFragment {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().startActivity(PurchaseGroupActivity.newIntent(getActivity()));
+                getActivity().startActivity(PurchaseGroupActivity.newIntent(getActivity(),item));
             }
         });
+    }
+
+    private void initView(){
+        ImageLoaderUtil.displayImageByObjectId(item.getImage(),picture);
+        nameTextView.setText(item.getName());
+        wxidTextView.setText(String.format("微信号：%s",item.getWxId()));
+        descTextView.setText(item.getDesc());
     }
 
     @Override

@@ -16,4 +16,6 @@ public class ContentUtil {
     public static final String EXTRA_ARG_TITLE = "extra_title";
     public static final String EXTRA_ARG_URL = "extra_url";
 
+    public static final String EXTRA_ARG_ID = "extra_id";
+    public static final String EXTRA_OFFICIAL_INFO = "official_info";
 }

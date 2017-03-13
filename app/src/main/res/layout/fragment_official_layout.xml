@@ -10,13 +10,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/H2Font"
+        android:visibility="gone"
         tools:text="名称"/>
 
     <TextView
         android:id="@+id/desc_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         tools:text="描述"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comment_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/comment_layout"
@@ -37,10 +44,4 @@
             android:layout_height="wrap_content"
             android:text="添加评论"/>
     </LinearLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/comment_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

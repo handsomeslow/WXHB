@@ -51,6 +51,8 @@ public class OfficialPresenter implements OfficialContract.Presenter {
         });
     }
 
+
+
     @Override
     public void pullCommentData(String id) {
         AVObject todoFolder = AVObject.createWithoutData(CloudContentUtil.PUSH_OFFICAIL, id);

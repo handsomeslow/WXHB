@@ -12,7 +12,7 @@
         android:id="@+id/official_browsing_viewpager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="40dp"
+        android:paddingTop="60dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:clipChildren="false"/>

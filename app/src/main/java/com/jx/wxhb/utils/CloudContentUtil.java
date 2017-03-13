@@ -18,6 +18,12 @@ public class CloudContentUtil {
 
     // 公众号
     public static final String PUSH_OFFICAIL = "PushOfficial";
+    public static final String PUSH_OFFICAIL_NAME = "name";
+    public static final String PUSH_OFFICAIL_DESC = "desc";
+    public static final String PUSH_OFFICAIL_ORIGIN_ID = "originId";
+    public static final String PUSH_OFFICAIL_CATEGORY = "category";
+    public static final String PUSH_OFFICAIL_COMPANY = "desc";
+    public static final String PUSH_OFFICAIL_IMG = "imgUrl";
 
     // 红包群
     public static final String LUCKY_GROUP_TABLE = "LuckyGroup";

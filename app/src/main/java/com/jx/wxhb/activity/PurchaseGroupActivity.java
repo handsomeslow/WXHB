@@ -11,6 +11,8 @@ import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.MainTabAdapter;
 import com.jx.wxhb.fragment.OfficialFragment;
 import com.jx.wxhb.fragment.OfficialHistoryFragment;
+import com.jx.wxhb.model.OfficialInfo;
+import com.jx.wxhb.utils.ContentUtil;
 import com.jx.wxhb.widget.CoordinatorTabLayout;
 
 import java.util.ArrayList;
@@ -30,12 +32,15 @@ public class PurchaseGroupActivity extends BaseActivity {
     CoordinatorTabLayout tablayout;
 
     private MainTabAdapter tabAdapter;
-    OfficialFragment officialFragment;
-    OfficialHistoryFragment officialHistoryFragment;
 
+    private OfficialFragment officialFragment;
 
-    public static Intent newIntent(Context context){
+    private OfficialHistoryFragment officialHistoryFragment;
+
+    private OfficialInfo info;
+    public static Intent newIntent(Context context,OfficialInfo info){
         Intent intent = new Intent();
+        intent.putExtra(ContentUtil.EXTRA_OFFICIAL_INFO,info);
         intent.setClass(context,PurchaseGroupActivity.class);
         return intent;
     }
@@ -44,10 +49,12 @@ public class PurchaseGroupActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_purchase_group_layout);
         ButterKnife.bind(this);
+        if (getIntent()!=null){
+            info = getIntent().getParcelableExtra(ContentUtil.EXTRA_OFFICIAL_INFO);
+        }
+
         showBackButton();
         addFragmentList();
     }
@@ -55,7 +62,7 @@ public class PurchaseGroupActivity extends BaseActivity {
     private void addFragmentList(){
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
-        officialFragment = OfficialFragment.newInstance("58af97bb570c35006919254f");
+        officialFragment = OfficialFragment.newInstance(info.getId());
         fragmentList.add(officialFragment);
         titleList.add("简介");
         officialHistoryFragment = OfficialHistoryFragment.newInstance();
@@ -63,8 +70,13 @@ public class PurchaseGroupActivity extends BaseActivity {
         titleList.add("历史文章");
         tabAdapter = new MainTabAdapter(getSupportFragmentManager(),fragmentList,titleList);
         viewPager.setAdapter(tabAdapter);
-        tablayout.setImageBackground("58be8da5128fe1007e65c81d")
+        tablayout.setImageBackground(info.getImage())
                 .setTitle("公众号详情")
+                .setName(info.getName())
+                .setDesc(info.getDesc())
+                .setWxId(info.getWxId())
+                .setCategory(info.getTags())
+                .setCompany(info.getOrganization())
                 .setUpWithViewPager(viewPager);
     }
 }

@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.utils.ImageLoaderUtil;
@@ -39,6 +40,11 @@ public class CoordinatorTabLayout extends CoordinatorLayout {
     private ActionBar actionBar;
     private TabLayout tabLayout;
     private ImageView imageView;
+    private TextView nameTextView;
+    private TextView descTextView;
+    private TextView categoryTextView;
+    private TextView wxIdView;
+    private TextView companyTextView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     public CoordinatorTabLayout(Context context) {
@@ -66,6 +72,11 @@ public class CoordinatorTabLayout extends CoordinatorLayout {
         actionBar = ((AppCompatActivity) context).getSupportActionBar();
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         imageView = (ImageView) findViewById(R.id.imageView);
+        nameTextView = (TextView) findViewById(R.id.name_text_view);
+        descTextView = (TextView) findViewById(R.id.desc_text_view);
+        categoryTextView = (TextView) findViewById(R.id.category_text_view);
+        wxIdView = (TextView) findViewById(R.id.wxid_text_view);
+        companyTextView = (TextView) findViewById(R.id.company_text_view);
     }
 
     public CoordinatorTabLayout setTitle(String title){
@@ -109,5 +120,29 @@ public class CoordinatorTabLayout extends CoordinatorLayout {
         tabLayout.setupWithViewPager(viewPager);
         return this;
     }
+
+    public CoordinatorTabLayout setName(String name){
+        nameTextView.setText(name);
+        return this;
+    }
+
+    public CoordinatorTabLayout setDesc(String desc){
+        descTextView.setText(desc);
+        return this;
+    }
+    public CoordinatorTabLayout setCategory(String category){
+        categoryTextView.setText(category);
+        return this;
+    }
+    public CoordinatorTabLayout setCompany(String company){
+        companyTextView.setText(company);
+        return this;
+    }
+
+    public CoordinatorTabLayout setWxId(String wxId){
+        wxIdView.setText(String.format("微信号：%s",wxId));
+        return this;
+    }
+
 
 }

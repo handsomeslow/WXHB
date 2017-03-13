@@ -10,3 +10,4 @@
 .idea
 *.iml
 *.log
+.idea/misc.xml
