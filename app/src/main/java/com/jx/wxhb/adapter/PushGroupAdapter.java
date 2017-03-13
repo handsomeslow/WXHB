@@ -77,12 +77,26 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
     @Override
     public void onBindViewHolder(PushGroupViewHolder holder, final int position) {
         final LuckyGroupInfo info = list.get(position);
+        if (info.getOwer()==null){
+            return;
+        }
         holder.nameTextView.setText(info.getOwer().getUsername());
         holder.contentTextView.setText(info.getContent());
         holder.dateTextView.setText(new SimpleDateFormat("yyyy.MM.dd HH:mm").format(info.getPublishDate()));
         ImageLoaderUtil.displayImageByObjectId(info.getOwer().getString(CloudContentUtil.USER_AVATAR), holder.avatarImageView);
         if (info.getPhotoList() != null && info.getPhotoList().size() > 0) {
             ImageLoaderUtil.displayImageByObjectId(info.getPhotoList().get(0), holder.photoImageView);
+            holder.photoImageView.setVisibility(View.VISIBLE);
+            holder.photoImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener!=null){
+                        onClickListener.onPhotoView(position,info.getPhotoList().get(0));
+                    }
+                }
+            });
+        } else {
+            holder.photoImageView.setVisibility(View.GONE);
         }
         holder.addCommentBotton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +120,10 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
                 TextView date = (TextView) view.findViewById(R.id.time_name_text_view);
                 date.setText(commentInfo.getCreateTime());
                 holder.commentLayout.addView(view);
+                holder.commentLayout.setVisibility(View.VISIBLE);
             }
+        } else {
+            holder.commentLayout.setVisibility(View.GONE);
         }
     }
 
@@ -145,6 +162,8 @@ public class PushGroupAdapter extends UltimateViewAdapter<PushGroupAdapter.PushG
 
     public interface OnClickListener{
         void onAddComment(int position,String id);
+
+        void onPhotoView(int position,String image);
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

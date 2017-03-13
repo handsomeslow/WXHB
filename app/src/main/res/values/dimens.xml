@@ -23,7 +23,7 @@
     <dimen name="Lagerpadding">20dp</dimen>
 
     <dimen name="Avatar">56dp</dimen>
-
+    <dimen name="GroupPhoto">120dp</dimen>
     <dimen name="ModulGap">10dp</dimen>
 
     <!-- Item -->

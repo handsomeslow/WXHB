@@ -3,6 +3,7 @@ package com.jx.wxhb.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.PushGroupAdapter;
+import com.jx.wxhb.fragment.PhotoViewFragment;
 import com.jx.wxhb.model.CommentInfo;
 import com.jx.wxhb.model.LuckyGroupInfo;
 import com.jx.wxhb.presenter.LuckyGroupContract;
@@ -79,6 +81,15 @@ public class LuckyGroupActivity extends BaseActivity implements LuckyGroupContra
                     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     groupId = id;
                     itemPosition = position;
+                }
+
+                @Override
+                public void onPhotoView(int position, String image) {
+                    PhotoViewFragment photoViewFragment = PhotoViewFragment.newInstance(image);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(photoViewFragment,image);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    //photoViewFragment.showPhoto(getSupportFragmentManager(),image);
                 }
             });
             luckyGroupListView.setAdapter(adapter);

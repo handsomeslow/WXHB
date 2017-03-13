@@ -5,9 +5,11 @@ import android.content.Context;
 import android.view.WindowManager;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.crashlytics.android.Crashlytics;
 import com.jx.wxhb.utils.UIUtils;
 
 import cn.jpush.android.api.JPushInterface;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,6 +22,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         Realm.init(this);
 
         RealmConfiguration configuration = new RealmConfiguration.Builder()

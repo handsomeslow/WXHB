@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/avatar_image_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"/>
+        android:layout_width="@dimen/Avatar"
+        android:layout_height="@dimen/Avatar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,10 +40,9 @@
 
         <ImageView
             android:id="@+id/photo_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:maxHeight="150dp"/>
+            android:layout_width="@dimen/GroupPhoto"
+            android:layout_height="@dimen/GroupPhoto"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
