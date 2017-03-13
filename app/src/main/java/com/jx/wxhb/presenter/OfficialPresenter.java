@@ -38,6 +38,10 @@ public class OfficialPresenter implements OfficialContract.Presenter {
         officialQuery.getInBackground(id, new GetCallback<AVObject>() {
             @Override
             public void done(AVObject avObject, AVException e) {
+                if (e!=null){
+                    e.printStackTrace();
+                    return;
+                }
                 Log.d("jun", "pullOfficialData: "+avObject.getString("name"));
                 OfficialInfo info = new OfficialInfo();
                 info.setName(avObject.getString("name"));

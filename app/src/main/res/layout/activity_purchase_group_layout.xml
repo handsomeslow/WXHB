@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jx.wxhb.widget.CoordinatorTabLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tablayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/Normalpadding"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</com.jx.wxhb.widget.CoordinatorTabLayout>

@@ -30,7 +30,6 @@ public class MainTabActivity extends BaseActivity
     LuckMoneyFragment luckMoneyFragment;
     HotNewsFragment hotNewsFragment;
     MyFragment myFragment;
-    //OfficialFragment officialFragment;
     RandomFunnyFragment randomFunnyFragment;
     FunnyFragment funnyFragment;
 
@@ -77,7 +76,6 @@ public class MainTabActivity extends BaseActivity
 //        fragments.add(randomFunnyFragment);
         funnyFragment = FunnyFragment.newInstance();
         fragments.add(funnyFragment);
-        //officialFragment = OfficialFragment.newInstance("");
         myFragment = MyFragment.newInstance("设置");
         fragments.add(myFragment);
         return fragments;

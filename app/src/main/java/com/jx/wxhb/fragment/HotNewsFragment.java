@@ -88,7 +88,7 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
         newListView.enableDefaultSwipeRefresh(false);
         presenter = new NewsPresenter(this);
 
-        presenter.pullNewsFromCloud();
+
 //        newListView.post(new Runnable() {
 //            @Override
 //            public void run() {
@@ -96,6 +96,12 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 //            }
 //        });
         initTopContentFragment();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.pullNewsFromCloud();
     }
 
     private void initTopContentFragment(){
