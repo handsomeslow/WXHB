@@ -15,6 +15,7 @@ repositories {
 }
 
 apply plugin: 'realm-android'
+apply from: 'tinkerpatch.gradle'
 
 android {
     compileSdkVersion 25
@@ -102,6 +103,8 @@ dependencies {
 
     // 若使用annotation需要单独引用,对于tinker的其他库都无需再引用
     compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.4")
+    compile 'com.airbnb.android:lottie:1.5.3'
+    compile ('cn.leancloud.android:avoscloud-feedback:v3.+@aar')
 }
 
-apply from: 'tinkerpatch.gradle'
+
