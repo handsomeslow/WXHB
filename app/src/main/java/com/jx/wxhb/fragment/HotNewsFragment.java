@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.NewsInfoAdapter;
 import com.jx.wxhb.model.HotNewInfo;
@@ -29,6 +30,8 @@ import butterknife.ButterKnife;
  */
 public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
+    @Bind(R.id.loading_view)
+    LottieAnimationView loadingView;
     private List<HotNewInfo> newList;
 
     @Bind(R.id.new_list_view)
@@ -73,8 +76,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
         super.onActivityCreated(savedInstanceState);
 
         newListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        newListView.setNormalHeader(LayoutInflater.from(getActivity())
-//                .inflate(R.layout.view_bottom_progressbar, null));
 
         newListView.setLoadMoreView(LayoutInflater.from(getActivity())
                 .inflate(R.layout.view_bottom_progressbar, null));
@@ -88,13 +89,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
         newListView.enableDefaultSwipeRefresh(false);
         presenter = new NewsPresenter(this);
 
-
-//        newListView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                newListView.setRefreshing(true);
-//            }
-//        });
         initTopContentFragment();
     }
 
@@ -104,10 +98,10 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
         presenter.pullNewsFromCloud();
     }
 
-    private void initTopContentFragment(){
-        if (topContentFragment == null){
+    private void initTopContentFragment() {
+        if (topContentFragment == null) {
             topContentFragment = TopContentFragment.newInstance();
-            addFragment(topContentFragment,R.id.top_content_wrap);
+            addFragment(topContentFragment, R.id.top_content_wrap);
         }
     }
 
@@ -121,11 +115,12 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
     @Override
     public void loadMoreDataSuccess(List<HotNewInfo> newsList) {
+        loadingView.setVisibility(View.GONE);
         if (adapter == null) {
             adapter = new NewsInfoAdapter(getActivity(), newsList);
             newListView.setAdapter(adapter);
         } else {
-            adapter.insertInternal(newsList,newList);
+            adapter.insertInternal(newsList, newList);
         }
 
     }
@@ -133,7 +128,7 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
     @Override
     public void loadnoMoreData() {
         newListView.disableLoadmore();
-        Toast.makeText(getActivity(),"没有更多内容",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "没有更多内容", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,6 +149,6 @@ public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
     @Override
     public void refreshDataFail() {
-        Toast.makeText(getActivity(),"没有更多内容",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "没有更多内容", Toast.LENGTH_SHORT).show();
     }
 }

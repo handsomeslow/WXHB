@@ -74,6 +74,11 @@
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
 
+
+-keep class ....***Application {
+    *;
+}
+
 # 如果有引用android-support-v4.jar包，可以添加下面这行
 -keep public class com.null.test.ui.fragment.** {*;}
 
@@ -255,3 +260,6 @@
 
 -dontwarn com.luolc.**
 -keep class com.luolc.** { *;}
+
+-dontwarn com.tinkerpatch.**
+-keep class com.tinkerpatch.** { *;}
