@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -42,8 +42,15 @@ android {
             minifyEnabled true //混淆编译
             //前一部分代表系统默认的android程序的混淆文件 ， 该文件已经包含了基本的混淆声明
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
         }
     }
+
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
@@ -91,4 +98,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
+    compile "com.android.support:multidex:1.0.1"
+
+    // 若使用annotation需要单独引用,对于tinker的其他库都无需再引用
+    compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.4")
 }
+
+apply from: 'tinkerpatch.gradle'
