@@ -17,6 +17,7 @@
     <include layout="@layout/view_control_layout"/>
 
     <TextView
+        android:id="@+id/hb_setting_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -25,12 +26,29 @@
         android:padding="@dimen/Mediumpadding"
         android:text="红包设置"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:textAppearance="@style/TitleTextStyle"
-        android:background="@color/ContentBackgroundColor"
         android:padding="@dimen/Mediumpadding"
-        android:text="反馈建议"/>
+        android:background="@color/ContentBackgroundColor">
+
+        <TextView
+            android:id="@+id/feedback_button"
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TitleTextStyle"
+            android:text="反馈建议"/>
+
+        <ImageView
+            android:id="@+id/feedback_notification_image_view"
+            android:layout_weight="1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:src="@drawable/notification_icon"/>
+    </LinearLayout>
+
 </LinearLayout>
