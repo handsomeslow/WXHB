@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/PageBackgroundColor"
     tools:context="com.jx.wxhb.fragment.MyFragment">
 
     <include layout="@layout/view_login_in"/>
@@ -15,6 +14,23 @@
         android:visibility="gone"
         android:text="上传"/>
 
-    <include layout="@layout/view_control_layout" />
+    <include layout="@layout/view_control_layout"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:textAppearance="@style/TitleTextStyle"
+        android:background="@color/ContentBackgroundColor"
+        android:padding="@dimen/Mediumpadding"
+        android:text="红包设置"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:textAppearance="@style/TitleTextStyle"
+        android:background="@color/ContentBackgroundColor"
+        android:padding="@dimen/Mediumpadding"
+        android:text="反馈建议"/>
 </LinearLayout>
