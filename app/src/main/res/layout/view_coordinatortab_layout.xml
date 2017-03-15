@@ -29,7 +29,7 @@
                     android:fitsSystemWindows="true"
                     android:layout_marginLeft="@dimen/Normalpadding"
                     android:scaleType="centerCrop"
-                    android:background="@color/grey"
+                    android:src="@drawable/default_image"
                     app:layout_collapseMode="parallax"
                     android:layout_alignParentBottom="true"/>
 

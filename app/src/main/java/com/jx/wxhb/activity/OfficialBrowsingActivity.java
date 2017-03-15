@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.FrameLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.OfficialBrowsingAdapter;
 import com.jx.wxhb.model.CommentInfo;
@@ -30,8 +33,8 @@ public class OfficialBrowsingActivity extends BaseActivity implements OfficialBr
     @Bind(R.id.official_browsing_viewpager)
     HackyViewPager officialBrowsingViewpager;
 
-    @Bind(R.id.official_browsing_list_view)
-    UltimateRecyclerView officialBrowsingListView;
+    @Bind(R.id.loading_view)
+    FrameLayout loadingView;
 
     OfficialBrowsingAdapter adapter;
 
@@ -79,5 +82,6 @@ public class OfficialBrowsingActivity extends BaseActivity implements OfficialBr
     @Override
     public void refreshBrowsing(List<OfficialInfo>  officialInfoList) {
         initBrowsing(officialInfoList);
+        loadingView.setVisibility(View.GONE);
     }
 }

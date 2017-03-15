@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.NewsInfoAdapter;
 import com.jx.wxhb.model.HotNewInfo;
@@ -30,8 +30,10 @@ import butterknife.ButterKnife;
  */
 public class HotNewsFragment extends BaseFragment implements NewsContract.View {
 
+
     @Bind(R.id.loading_view)
-    LottieAnimationView loadingView;
+    FrameLayout loadingView;
+
     private List<HotNewInfo> newList;
 
     @Bind(R.id.new_list_view)

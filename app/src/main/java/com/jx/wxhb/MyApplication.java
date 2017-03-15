@@ -17,7 +17,7 @@ import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
 import com.tinkerpatch.sdk.tinker.callback.ResultCallBack;
 
 import cn.jpush.android.api.JPushInterface;
-//import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
