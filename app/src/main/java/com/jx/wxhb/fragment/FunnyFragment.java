@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jx.wxhb.R;
+import com.jx.wxhb.activity.DaigouGroupActivity;
 import com.jx.wxhb.activity.LuckyGroupActivity;
 import com.jx.wxhb.activity.OfficialBrowsingActivity;
 
@@ -63,8 +64,11 @@ public class FunnyFragment extends BaseFragment {
 
     @OnClick(R.id.official_push_layout)
     public void onOfficialClick(){
-//        ActivityOptions options =
-//                ActivityOptions.makeSceneTransitionAnimation(getActivity(), officialPushLayout, officialPushLayout.getTransitionName());
         getActivity().startActivity(OfficialBrowsingActivity.newIntent(getActivity()));
+    }
+
+    @OnClick(R.id.daiguo_layout)
+    public void onDaigouClick(){
+        getActivity().startActivity(DaigouGroupActivity.newIntent(getActivity()));
     }
 }

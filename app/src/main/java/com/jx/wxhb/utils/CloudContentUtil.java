@@ -33,7 +33,11 @@ public class CloudContentUtil {
     public static final String LUCKY_GROUP_PHOTOS = "photos";
     public static final String LUCKY_GROUP_COMMENT = "groupComments";
 
-
+    // 代购群
+    public static final String DAIGOU_GROUP_TABLE = "DaigouGroup";
+    public static final String DAIGOU_GROUP_OWNER = "owner";
+    public static final String DAIGOU_GROUP_CONTENT = "content";
+    public static final String DAIGOU_GROUP_PHOTOS = "photos";
 
     // 推荐文章或公众号
     public static final String PUSH_CONTENT_TABLE = "TopContent";
