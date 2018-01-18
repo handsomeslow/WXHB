@@ -22,4 +22,7 @@
 
     <string name="random_funny_title">下面5个红包有一个不是空的，猜猜看是哪个？</string>
     <string name="lucky_publish_hint">请输入发布内容</string>
+
+    <string name="question_label">答题助手</string>
+    <string name="question_description">答题助手</string>
 </resources>

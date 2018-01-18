@@ -30,6 +30,7 @@ public class MyApplication extends Application {
 
     ApplicationLike tinkerAppLike;
 
+    public static Context context;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -73,5 +74,6 @@ public class MyApplication extends Application {
 
         WindowManager mwm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         UIUtils.initDisplayMetrics(mwm);
+        context = this;
     }
 }

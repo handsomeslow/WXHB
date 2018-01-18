@@ -1,15 +1,23 @@
 package com.jx.wxhb.activity;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.jx.wxhb.MyApplication;
 import com.jx.wxhb.R;
 import com.jx.wxhb.adapter.MainTabAdapter;
 import com.jx.wxhb.fragment.FunnyFragment;
@@ -17,6 +25,7 @@ import com.jx.wxhb.fragment.HotNewsFragment;
 import com.jx.wxhb.fragment.LuckMoneyFragment;
 import com.jx.wxhb.fragment.MyFragment;
 import com.jx.wxhb.fragment.OfficialFragment;
+import com.jx.wxhb.fragment.QuestionAssistantFragment;
 import com.jx.wxhb.fragment.RandomFunnyFragment;
 
 import java.util.ArrayList;
@@ -27,12 +36,14 @@ import butterknife.ButterKnife;
 
 public class MainTabActivity extends BaseActivity
         implements ViewPager.OnPageChangeListener,BottomNavigationBar.OnTabSelectedListener{
+    private static final String TAG = "MainTabActivity";
+
     LuckMoneyFragment luckMoneyFragment;
     HotNewsFragment hotNewsFragment;
     MyFragment myFragment;
     RandomFunnyFragment randomFunnyFragment;
     FunnyFragment funnyFragment;
-
+    QuestionAssistantFragment questionAssistantFragment;
     // 底部tab
     @Bind(R.id.bottom_bar)
     BottomNavigationBar bottomBar;
@@ -64,6 +75,7 @@ public class MainTabActivity extends BaseActivity
         fragmentViewPager.setAdapter(mainTabAdapter);
         fragmentViewPager.addOnPageChangeListener(this);
         setTitle("红包大作战");
+        checkAccessibilityStatus();
     }
 
     private List<Fragment> setFragments(){
@@ -74,8 +86,10 @@ public class MainTabActivity extends BaseActivity
         fragments.add(hotNewsFragment);
 //        randomFunnyFragment = RandomFunnyFragment.newInstance("猜猜乐");
 //        fragments.add(randomFunnyFragment);
-        funnyFragment = FunnyFragment.newInstance();
-        fragments.add(funnyFragment);
+//        funnyFragment = FunnyFragment.newInstance();
+//        fragments.add(funnyFragment);
+        questionAssistantFragment = QuestionAssistantFragment.newInstance();
+          fragments.add(questionAssistantFragment);
         myFragment = MyFragment.newInstance("设置");
         fragments.add(myFragment);
         return fragments;
@@ -141,5 +155,50 @@ public class MainTabActivity extends BaseActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    // 此方法用来判断当前应用的辅助功能服务是否开启
+    public static boolean isAccessibilitySettingsOn(Context context) {
+        int accessibilityEnabled = 0;
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.i(TAG, e.getMessage());
+        }
+
+        if (accessibilityEnabled == 1) {
+            String services = Settings.Secure.getString(context.getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (services != null) {
+                return services.toLowerCase().contains(context.getPackageName().toLowerCase());
+            }
+        }
+
+        return false;
+    }
+
+    private void checkAccessibilityStatus() {
+        // 判断辅助功能是否开启
+        if (!isAccessibilitySettingsOn(MyApplication.context)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("检测未开启无障碍功能，开启后才能使用抢红包和答题助手等功能，是否去开启？")
+                    .setPositiveButton("去开启", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 引导至辅助功能设置页面
+                            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton("放弃", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainTabActivity.this, "抢红包和答题助手等功能目前不可用！", Toast.LENGTH_LONG).show();
+                        }
+                    });
+            builder.create().show();
+
+        }
     }
 }

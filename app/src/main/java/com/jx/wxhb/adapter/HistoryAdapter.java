@@ -34,7 +34,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd  HH:mm");
         holder.dateView.setText(simpleDateFormat.format(new Date(hBinfoList.get(position).getDate())));
-        holder.titleView.setText(hBinfoList.get(position).getTitle());
+        holder.titleView.setText(hBinfoList.get(position).getUser());
         holder.descView.setText(hBinfoList.get(position).getDesc());
         holder.moneyView.setText(hBinfoList.get(position).getMoney()+"元");
     }

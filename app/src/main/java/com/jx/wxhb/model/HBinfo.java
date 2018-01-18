@@ -14,7 +14,7 @@ import io.realm.annotations.Required;
 public class HBinfo extends RealmObject {
     private String id;
 
-    private String title;
+    private String user;
 
     private String desc;
 
@@ -31,12 +31,12 @@ public class HBinfo extends RealmObject {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUser() {
+        return user;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public long getDate() {

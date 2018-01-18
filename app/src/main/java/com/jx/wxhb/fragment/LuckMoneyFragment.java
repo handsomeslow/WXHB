@@ -69,6 +69,13 @@ public class LuckMoneyFragment extends BaseFragment {
         realm = Realm.getDefaultInstance();
 
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //hbinfos = realm.where(HBinfo.class).findAllAsync();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         hbinfos = realm.where(HBinfo.class).findAllAsync();
         hbinfos.addChangeListener(new RealmChangeListener<RealmResults<HBinfo>>() {
             @Override

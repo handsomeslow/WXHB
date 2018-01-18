@@ -10,14 +10,12 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.jx.wxhb.MainActivity;
 import com.jx.wxhb.activity.MainTabActivity;
 import com.jx.wxhb.model.HBinfo;
-import com.jx.wxhb.utils.VersionParamer;
+import com.jx.wxhb.utils.WeChatVersionParameter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import io.realm.Realm;
 
@@ -84,7 +82,7 @@ public class QHBAccessibilityService extends AccessibilityService {
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI")) {
                     //开红包
                     Log.e("demo","开红包");
-                    onClickView(VersionParamer.OPEN_PACKET);
+                    onClickView(WeChatVersionParameter.V661.OPEN_PACKET);
                     isAutoToDetail = true;
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI")) {
                     //退出红包
@@ -92,9 +90,9 @@ public class QHBAccessibilityService extends AccessibilityService {
                     if (isAutoToDetail){
                         isAutoToDetail = false;
                         HBinfo hBinfo = new HBinfo();
-                        hBinfo.setTitle(getTextById(VersionParamer.TITLE_TEXT));
-                        hBinfo.setDesc(getTextById(VersionParamer.DESC_TEXT));
-                        hBinfo.setMoney(Float.parseFloat(getTextById(VersionParamer.MONEY_TEXT)));
+                        hBinfo.setUser(getTextById(WeChatVersionParameter.V661.USER_TEXT));
+                        hBinfo.setDesc(getTextById(WeChatVersionParameter.V661.DESC_TEXT));
+                        hBinfo.setMoney(Float.parseFloat(getTextById(WeChatVersionParameter.V661.MONEY_TEXT)));
                         hBinfo.setDate(System.currentTimeMillis());
                         saveLuckyMoneyData(hBinfo);
                         Intent intent = new Intent(this, MainTabActivity.class);
@@ -102,7 +100,7 @@ public class QHBAccessibilityService extends AccessibilityService {
                         startActivity(intent);
                     } else {
                         if (!isAutoOpen){
-                            onClickView(VersionParamer.GO_BACK);
+                            onClickView(WeChatVersionParameter.V661.GO_BACK);
                         }
                     }
                 }
