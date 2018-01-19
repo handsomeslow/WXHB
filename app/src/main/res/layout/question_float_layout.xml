@@ -5,9 +5,9 @@
 
     <TextView
         android:id="@+id/answer_text_view"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@color/BlueColor"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:background="#bf1395DA"
         android:gravity="center"
         android:text="这是浮动窗口"/>
 </LinearLayout>

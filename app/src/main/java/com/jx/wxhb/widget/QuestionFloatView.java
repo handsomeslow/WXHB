@@ -26,6 +26,7 @@ public class QuestionFloatView extends LinearLayout {
 
     private TextView answerTextView;
 
+    private boolean isShow = false;
 
     public QuestionFloatView(Context context) {
         super(context);
@@ -38,9 +39,7 @@ public class QuestionFloatView extends LinearLayout {
 
         answerTextView = (TextView) findViewById(R.id.answer_text_view);
 
-        if (!isShown() && !isActivated()) {
-            windowManager.addView(this,wmParams);
-        }
+        show();
     }
 
     private void initWindowManager(Context context){
@@ -58,7 +57,7 @@ public class QuestionFloatView extends LinearLayout {
         //设置浮动窗口不可聚焦（实现操作除浮动窗口外的其他可见窗口的操作）
         wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         //调整悬浮窗显示的停靠位置为左侧置顶
-        wmParams.gravity = Gravity.LEFT | Gravity.TOP;
+        wmParams.gravity = Gravity.LEFT | Gravity.BOTTOM;
         // 以屏幕左上角为原点，设置x、y初始值，相对于gravity
         wmParams.x = 0;
         wmParams.y = 0;
@@ -75,6 +74,12 @@ public class QuestionFloatView extends LinearLayout {
     public void remove(){
         //移除悬浮窗口
         windowManager.removeView(this);
+    }
+
+    public void show() {
+        if (!isShown() && !isActivated()) {
+            windowManager.addView(this,wmParams);
+        }
     }
 
 }

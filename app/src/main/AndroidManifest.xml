@@ -30,9 +30,6 @@
 
         <service
             android:name=".service.QHBAccessibilityService"
-            android:enabled="true"
-            android:exported="true"
-            android:label="@string/label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -43,21 +40,6 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-        <service
-            android:name=".service.QuestionAccessibilityService"
-            android:enabled="true"
-            android:exported="true"
-            android:label="@string/question_label"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/question_accessibility_service_config" />
-        </service>
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="147bd5fec620bef21d14ae715e6123d177723a72" />
@@ -66,22 +48,22 @@
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
-
         <activity android:name=".activity.LuckyGroupActivity" />
-
         <activity android:name=".activity.DaigouGroupActivity" />
-
         <activity android:name=".activity.PublishLuckyGroupActivity" />
-
         <activity android:name=".activity.OfficialBrowsingActivity" />
-
-        <activity android:name=".activity.PurchaseGroupActivity"
-            android:theme="@style/ActivityNoBar"/>
-
+        <activity
+            android:name=".activity.PurchaseGroupActivity"
+            android:theme="@style/ActivityNoBar" />
         <activity
             android:name="com.avos.avoscloud.feedback.ThreadActivity"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme" />
+
+        <service
+            android:name=".service.QuestionFloatService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

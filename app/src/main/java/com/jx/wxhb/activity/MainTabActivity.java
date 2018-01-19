@@ -1,5 +1,6 @@
 package com.jx.wxhb.activity;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import com.jx.wxhb.fragment.MyFragment;
 import com.jx.wxhb.fragment.OfficialFragment;
 import com.jx.wxhb.fragment.QuestionAssistantFragment;
 import com.jx.wxhb.fragment.RandomFunnyFragment;
+import com.jx.wxhb.utils.AccessibilityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,30 +159,25 @@ public class MainTabActivity extends BaseActivity
         return super.onKeyDown(keyCode, event);
     }
 
-    // 此方法用来判断当前应用的辅助功能服务是否开启
-    public static boolean isAccessibilitySettingsOn(Context context) {
-        int accessibilityEnabled = 0;
-        try {
-            accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(),
-                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-        } catch (Settings.SettingNotFoundException e) {
-            Log.i(TAG, e.getMessage());
-        }
-
-        if (accessibilityEnabled == 1) {
-            String services = Settings.Secure.getString(context.getContentResolver(),
-                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-            if (services != null) {
-                return services.toLowerCase().contains(context.getPackageName().toLowerCase());
-            }
-        }
-
-        return false;
-    }
+//    /**
+//     * 判断自己的应用的AccessibilityService是否在运行
+//     *
+//     * @return
+//     */
+//    private boolean serviceIsRunning() {
+//        ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+//        List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Short.MAX_VALUE);
+//        for (ActivityManager.RunningServiceInfo info : services) {
+//            if (info.service.getClassName().equals(getPackageName() + ".service.QHBAccessibilityService")) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     private void checkAccessibilityStatus() {
         // 判断辅助功能是否开启
-        if (!isAccessibilitySettingsOn(MyApplication.context)) {
+        if (!AccessibilityUtil.serviceIsRunning(".service.QHBAccessibilityService")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setTitle("提示")
                     .setMessage("检测未开启无障碍功能，开启后才能使用抢红包和答题助手等功能，是否去开启？")

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WXHB</string>
+    <string name="app_name">助手</string>
     <string name="label">微信抢红包</string>
-    <string name="description">微信6.3.30 抢红包测试版</string>
+    <string name="description">开启后即可使用微信抢红包与答题辅助等功能</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
